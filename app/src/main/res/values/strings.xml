@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">FleetManager</string>
+    <string name="title_activity">MainActivity</string>
+    <string name="title_garage">Garage</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_employees">Employees</string>
+    <string name="title_profile">Profile</string>
 </resources>

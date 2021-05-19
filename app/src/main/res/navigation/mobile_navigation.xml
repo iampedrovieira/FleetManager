@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_dashboard">
+
+    <fragment
+        android:id="@+id/navigation_garage"
+        android:name="com.example.fleetmanager.ui.garage.GarageFragment"
+        android:label="@string/title_garage"
+        tools:layout="@layout/fragment_garage" />
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.fleetmanager.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_employees"
+        android:name="com.example.fleetmanager.ui.employees.EmployeesFragment"
+        android:label="@string/title_employees"
+        tools:layout="@layout/fragment_employees" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.fleetmanager.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+</navigation>
