@@ -1,17 +1,17 @@
 package com.example.fleetmanager
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toolbar
-import androidx.appcompat.app.ActionBar
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.fleetmanager.ui.dashboard.DashboardFragment
 import com.example.fleetmanager.ui.employees.EmployeesFragment
 import com.example.fleetmanager.ui.garage.GarageFragment
 import com.example.fleetmanager.ui.profile.ProfileFragment
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+
     }
 
 
@@ -76,4 +77,10 @@ class MainActivity : AppCompatActivity() {
             replace(R.id.fl_wrapper, fragment)
             commit()
         }
+
+    fun openManagementDashboard(view: View) {
+        val intent = Intent(this, ManagementDashboard::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
+        startActivity(intent)
+    }
 }

@@ -55,11 +55,11 @@
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addButton"
+            android:id="@+id/openManagementDashboard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="TODO"
             android:defaultFocusHighlightEnabled="true"
+            android:onClick="openManagementDashboard"
             android:src="@drawable/ic_add"
             app:backgroundTint="@color/primaryBlue"
             app:layout_anchor="@+id/bottomAppBar"

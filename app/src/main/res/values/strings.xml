@@ -5,4 +5,11 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_employees">Employees</string>
     <string name="title_profile">Profile</string>
+    <string name="title_management_dashboard">Management Dashboard</string>
+    <string name="add_vehicle">Add Vehicle</string>
+    <string name="add_employee">Add Employee</string>
+    <string name="add_inspection">Add Inspection</string>
+    <string name="add_insurance">Add Insurance</string>
+    <string name="manage_vehicles">Manage Vehicles</string>
+    <string name="add_revision">Add Revision</string>
 </resources>
