@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">FleetManager</string>
+    <string name="vehicle_name">Employee Truck</string>
+    <string name="vehicle_vin">VIN Number</string>
+    <string name="vehicle_info">Vehicle Information</string>
+    <string name="vehicle_brand">Brand</string>
+    <string name="vehicle_model">Model</string>
+    <string name="vehicle_plate">Plate</string>
+    <string name="vehicle_consumption">Avg Consumption (l/Km)</string>
+    <string name="vehicle_other_info">Other Information</string>
+    <string name="vehicle_Kilometers">Kilometers</string>
+    <string name="vehicle_last_revision">Last Revision</string>
+    <string name="vehicle_revision_value">Revision Value</string>
+    <string name="vehicle_last_revision_km">Last Revision Kilometers</string>
+    <string name="vehicle_insurance_date">Insurance Date</string>
+    <string name="vehicle_insurance_value">Insurance Value</string>
+    <string name="vehicle_brand_name">Vehicle Brand</string>
+    <string name="btn_add">Add</string>
+
 </resources>
