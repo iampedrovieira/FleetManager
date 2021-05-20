@@ -1,9 +1,18 @@
 <resources>
     <string name="app_name">FleetManager</string>
 
+    <!-- Shared Preferences -->
+    <string name="preference_file_key">cn-sp</string>
+    <string name="logged">logged</string>
+    <string name="uid">uid</string>
+    <string name="isEmployee">isEmplyoee</string>
+    <string name="company">company</string>
+
     <!-- Login -->
     <string name="email">Email</string>
     <string name="passwd">Password</string>
     <string name="login">Login</string>
     <string name="orLogin">or login with:</string>
+    <string name="loginFailed">Login failed</string>
+    <string name="emptyFields">Empty Fields</string>
 </resources>
