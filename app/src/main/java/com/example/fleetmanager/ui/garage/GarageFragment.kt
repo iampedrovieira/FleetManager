@@ -12,20 +12,17 @@ import com.example.fleetmanager.R
 
 class GarageFragment : Fragment() {
 
-    private lateinit var garageViewModel: GarageViewModel
+    private lateinit var toolbar : androidx.appcompat.widget.Toolbar
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        garageViewModel =
-            ViewModelProvider(this).get(GarageViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_garage, container, false)
-        val textView: TextView = root.findViewById(R.id.text_garage)
-        garageViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+
+        toolbar = root.findViewById(R.id.toolbar)
+        toolbar.title = getString(R.string.title_garage)
         return root
     }
 }

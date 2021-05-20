@@ -2,6 +2,7 @@ package com.example.fleetmanager
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toolbar
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import com.example.fleetmanager.ui.dashboard.DashboardFragment
 import com.example.fleetmanager.ui.employees.EmployeesFragment
 import com.example.fleetmanager.ui.garage.GarageFragment
 import com.example.fleetmanager.ui.profile.ProfileFragment
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -29,8 +31,6 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.background = null
         setCurrentFragment(dashboardFragment)
 
-        val actionBar: ActionBar? = supportActionBar
-        actionBar?.hide()
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
