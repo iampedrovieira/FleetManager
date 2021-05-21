@@ -42,7 +42,6 @@ class Login : AppCompatActivity() {
         loginProgressView = findViewById(R.id.loginProgress)
 
         // Shared Preferences
-        // Shared Preferences
         val sharedPref: SharedPreferences = getSharedPreferences(
             getString(R.string.preference_file_key),
             Context.MODE_PRIVATE
@@ -50,9 +49,12 @@ class Login : AppCompatActivity() {
 
         val isLogged = sharedPref.getBoolean(getString(R.string.logged), false)
         if (isLogged) {
-            val i = Intent(this, MainActivity::class.java)
+            // TODO: Enviar o user para a sua pagina consoante o cargo
+            /**
+            val i = Intent(this@Login, MainActivity::class.java)
             startActivity(i)
             finish()
+            **/
         }
     }
 
@@ -110,9 +112,7 @@ class Login : AppCompatActivity() {
                                             commit()
                                         }
 
-                                        val i = Intent(this@Login, MainActivity::class.java)
-                                        startActivity(i)
-                                        finish()
+                                        // TODO: Enviar o user para a sua pagina consoante o cargo
                                     } else {
                                         // se tem userid e companyid e employee
                                         // User faz login: guardar uid no uid e meter isEmployee = true
@@ -129,9 +129,7 @@ class Login : AppCompatActivity() {
                                             commit()
                                         }
 
-                                        val i = Intent(this@Login, MainActivity::class.java)
-                                        startActivity(i)
-                                        finish()
+                                        // TODO: Enviar o user para a sua pagina consoante o cargo
                                     }
                                     loginProgressView.visibility = View.GONE
                                 }
