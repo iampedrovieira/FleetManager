@@ -16,6 +16,7 @@ import com.example.fleetmanager.entities.Truck
 class GarageFragment : Fragment() {
 
     private lateinit var toolbar : androidx.appcompat.widget.Toolbar
+    private lateinit var garageViewModel: GarageViewModel
 
     private val camioes = listOf(
             Truck("mercedes", "lll"),
