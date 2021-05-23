@@ -72,6 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/passwdTextField" />
 
     <TextView
+        android:id="@+id/loginwithTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/orLogin"
@@ -79,6 +80,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginbtn" />
+
+    <Button
+        android:id="@+id/googleLoginbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="8dp"
+        android:text="@string/google"
+        android:onClick="login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginwithTV" />
 
     <ProgressBar
         android:id="@+id/loginProgress"
