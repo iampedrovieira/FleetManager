@@ -27,6 +27,9 @@
     <string name="orLogin">or login with:</string>
     <string name="loginFailed">Login failed</string>
     <string name="emptyFields">Empty Fields</string>
-    <string name="truck_brand">Marca</string>
-    <string name="truck_license">Matrícula</string>
+
+    <!-- Vehicles -->
+    <string name="vehicle_brand">%1$1s</string>
+    <string name="vehicle_license">%1$1s</string>
+    <string name="vehicle_img"></string>
 </resources>

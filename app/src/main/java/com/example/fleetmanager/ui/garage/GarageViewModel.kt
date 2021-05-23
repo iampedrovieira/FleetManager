@@ -1,32 +1,34 @@
-package com.example.fleetmanager.ui.garage
+/*package com.example.fleetmanager.ui.garage
 
-import android.util.Log
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.fleetmanager.entities.Truck
+import com.example.fleetmanager.R
+import com.example.fleetmanager.api.Endpoints
+import com.example.fleetmanager.api.OutputVehicle
 
-class GarageViewModel : ViewModel() {
+class GarageViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is garage Fragment"
+    val allVehicles: LiveData<List<OutputVehicle>>
+
+
+    //val sharedPref = application.getSharedPreferences(
+     //   getString(R.string.preference_file_key), Context.MODE_PRIVATE)
+    val sharedPref: SharedPreferences =
+        application.getSharedPreferences(
+            application.applicationContext.getString(R.string.preference_file_key),
+            Context.MODE_PRIVATE
+        )
+
+    var company_key = sharedPref.getString(application.applicationContext.getString(R.string.company), "aaaa")
+
+    init{
+
+
+        allVehicles = company_key?.let { getVehicles(it) }!!
     }
-    val text: LiveData<String> = _text
 
-
-    val allVehicles: LiveData<List<Truck>>
-    val cam_ = MutableLiveData<List<Truck>>()
-    init {
-        cam_.apply {
-            val trucks = ArrayList<Truck>()
-            trucks.add(Truck("merdeces", "xx-xx-xx"))
-            trucks.add(Truck("toyota", "xx-ll-aa"))
-            value = trucks
-        }
-        allVehicles = cam_
-        Log.d("aa", allVehicles.toString())
-    }
-
-    //allVehicles = cam_
-
-}
+}*/

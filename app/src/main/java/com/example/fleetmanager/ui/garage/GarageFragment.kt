@@ -1,28 +1,30 @@
 package com.example.fleetmanager.ui.garage
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fleetmanager.R
 import com.example.fleetmanager.adapters.GarageAdapter
-import com.example.fleetmanager.entities.Truck
+import com.example.fleetmanager.api.Endpoints
+import com.example.fleetmanager.api.OutputVehicle
+import com.example.fleetmanager.api.ServiceBuilder
+import org.json.JSONArray
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class GarageFragment : Fragment() {
 
     private lateinit var toolbar : androidx.appcompat.widget.Toolbar
-    private lateinit var garageViewModel: GarageViewModel
-
-    private val camioes = listOf(
-            Truck("mercedes", "lll"),
-            Truck("bmw", "xxx"),
-            Truck("fff", "fff")
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,13 +33,14 @@ class GarageFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_garage, container, false)
 
+
+        // Configuration Toolbar, Menu inflation
         toolbar = root.findViewById(R.id.toolbar)
         toolbar.title = getString(R.string.title_garage)
-
-        val camioes = listOf(
-                Truck("mercedes", "lll"),
-                Truck("bmw", "xxx")
-        )
+        toolbar.inflateMenu(R.menu.garage_menu)
+        toolbar.setOnMenuItemClickListener {
+            onOptionsItemSelected(it)
+        }
 
         // Recycler View
         val truck_recycler = root.findViewById<RecyclerView>(R.id.truck_recycler)
@@ -45,17 +48,44 @@ class GarageFragment : Fragment() {
         truck_recycler.adapter = truck_adapter
         truck_recycler.layoutManager = LinearLayoutManager(this.context)
 
-        //val textView: TextView = root.findViewById(R.id.text_garage)
+        val sharedPref: SharedPreferences = requireActivity().getSharedPreferences(
+            getString(R.string.preference_file_key),
+            Context.MODE_PRIVATE
+        )
 
-        // View Model
-        garageViewModel = ViewModelProvider(requireActivity()).get(GarageViewModel::class.java)
-        garageViewModel.allVehicles.observe(viewLifecycleOwner, Observer {vehicles ->
-            vehicles?.let {
-                //textView.text = it
-                truck_adapter.setVehicles(it)
+        var company_key = sharedPref.getString(getString(R.string.company), "aaaa")
+        val request = ServiceBuilder.buildService(Endpoints::class.java)
+        val callVehiclePost = request.getVehicles(company_key)
+
+        callVehiclePost.enqueue(object: Callback<List<OutputVehicle>> {
+            override fun onResponse(
+                call: Call<List<OutputVehicle>>,
+                response: Response<List<OutputVehicle>>
+            ) {
+                if(response.isSuccessful){
+                    // Registering the Kotlin module with the ObjectMpper instance
+                    //val list: List<OutputVehicle> =
+                    Log.d("aa", response.body().toString())
+                    truck_adapter.setVehicles(response.body()!!)
+                }
+            }
+
+            override fun onFailure(call: Call<List<OutputVehicle>>, t: Throwable) {
+                Log.d("FALHOU", "${t.message}")
             }
         })
 
         return root
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId){
+            R.id.garage_map_icon -> {
+                Log.d("aa", "botao track todos veiculos")
+
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

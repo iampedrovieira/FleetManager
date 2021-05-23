@@ -50,11 +50,11 @@ class Login : AppCompatActivity() {
         val isLogged = sharedPref.getBoolean(getString(R.string.logged), false)
         if (isLogged) {
             // TODO: Enviar o user para a sua pagina consoante o cargo
-            /**
+
             val i = Intent(this@Login, MainActivity::class.java)
             startActivity(i)
             finish()
-            **/
+
         }
     }
 
