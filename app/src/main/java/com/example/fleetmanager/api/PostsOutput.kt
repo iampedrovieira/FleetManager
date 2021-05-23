@@ -20,3 +20,13 @@ data class OutputVehicle(
     val company_key: String,
     val fuel_type: String
     )
+
+data class OutputEmployee(
+    val employee_key: String,
+    val employee_name: String,
+    val phone_number: Int,
+    val employee_address: String,
+    val picture: String,
+    val company_key: String,
+    val on_service: Boolean
+    )

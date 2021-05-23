@@ -2,11 +2,8 @@ package com.example.fleetmanager.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
-import android.util.Base64.DEFAULT
-import android.util.Base64.decode
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +28,7 @@ class GarageAdapter(val context: Context, val fragment: GarageFragment): Recycle
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GarageViewHolder {
         // Criar nova view que define a User Interface do item da lista
-        val view = inflater.inflate(R.layout.recycler_truck_line, parent, false)
+        val view = inflater.inflate(R.layout.recycler_vehicle_line, parent, false)
         return GarageViewHolder(view)
     }
 

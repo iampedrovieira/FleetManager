@@ -10,9 +10,15 @@ interface Endpoints {
     @POST("users/login")
     fun login(@Field("firebaseKey") firebaseKey: String): Call<OutputLogin>
 
+    // Todos os veículos
     @FormUrlEncoded
     @POST("company/vehicle")
     fun getVehicles(@Field("companyKey") company_key: String?): Call<List<OutputVehicle>>
+
+    // Todos os empregados
+    @FormUrlEncoded
+    @POST("company/employees")
+    fun getEmployees(@Field("companyKey") company_key: String?): Call<List<OutputEmployee>>
 
 
 
