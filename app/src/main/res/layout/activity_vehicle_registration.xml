@@ -49,6 +49,15 @@
                     android:layout_height="wrap_content"
                     android:text="@string/vehicle_vin"/>
             </LinearLayout>
+            <ImageButton
+                android:id="@+id/tensorflow"
+                android:background="null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ml_tensorflow"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="16dp"
+                android:layout_marginStart="50dp"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/vehicle_types_layout"
@@ -61,21 +70,25 @@
             android:gravity="center">
 
             <ImageButton
+                android:id="@+id/motorcycle"
                 android:layout_width="46dp"
                 android:layout_height="37dp"
                 android:layout_marginHorizontal="6.5dp"
                 android:src="@drawable/vectorbike_icon" />
             <ImageButton
+                android:id="@+id/car"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/vectorcar_icon"
                 android:layout_marginHorizontal="6.5dp"/>
             <ImageButton
+                android:id="@+id/truck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/vectortruck_icon"
                 android:layout_marginHorizontal="6.5dp"/>
             <ImageButton
+                android:id="@+id/bike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/vectorbycicle_icon"
@@ -284,6 +297,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/add_vehicle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/btn_add"
