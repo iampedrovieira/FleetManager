@@ -13,7 +13,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fleetmanager.R
 import com.example.fleetmanager.api.OutputVehicle
-import com.example.fleetmanager.ui.garage.GarageFragment
+import com.example.fleetmanager.uiManagement.garage.GarageFragment
 
 class GarageAdapter(val context: Context, val fragment: GarageFragment): RecyclerView.Adapter<GarageAdapter.GarageViewHolder>() {
 

@@ -6,7 +6,7 @@
     <string name="title_employees">Employees</string>
     <string name="title_profile">Profile</string>
     <string name="title_trips">Trips</string>
-    <string name="title_management_dashboard">Management Dashboard</string>
+    <string name="title_management_menu">Management Menu</string>
     <string name="add_vehicle">Add Vehicle</string>
     <string name="add_employee">Add Employee</string>
     <string name="add_inspection">Add Inspection</string>
