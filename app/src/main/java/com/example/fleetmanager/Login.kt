@@ -61,23 +61,25 @@ class Login : AppCompatActivity() {
             signIn()
         }
 
-        if (isLogged()) {
-            // TODO: Enviar o user para a sua pagina consoante o cargo
-            // TODO: AQUI É O DO EMPLOYEE BABE ZE CARLOS 
-            /*val i = Intent(this@Login, MainActivityEmployee::class.java)
-            startActivity(i)
-            finish()*/
-
-        }
-    }
-
-    private fun isLogged(): Boolean {
-        // Shared Preferences
         val sharedPref: SharedPreferences = getSharedPreferences(
             getString(R.string.preference_file_key),
             Context.MODE_PRIVATE
         )
-        return sharedPref.getBoolean(getString(R.string.logged), false)
+
+        val isLogged = sharedPref.getBoolean(getString(R.string.logged), false)
+        val isEmployee = sharedPref.getBoolean(getString(R.string.isEmployee), false)
+
+        if (isLogged) {
+            if (isEmployee) {
+                val i = Intent(this@Login, MainActivityEmployee::class.java)
+                startActivity(i)
+                finish()
+            } else {
+                val i = Intent(this@Login, MainActivity::class.java)
+                startActivity(i)
+                finish()
+            }
+        }
     }
 
     fun login(view: View) {
@@ -114,6 +116,7 @@ class Login : AppCompatActivity() {
     }
 
     private fun signIn() {
+        loginProgressView.visibility = View.VISIBLE
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
@@ -201,7 +204,10 @@ class Login : AppCompatActivity() {
                             commit()
                         }
 
-                        // TODO: Enviar o user para a sua pagina consoante o cargo
+                        val i = Intent(this@Login, MainActivity::class.java)
+                        startActivity(i)
+                        finish()
+
                     } else {
                         // se tem userid e companyid e employee
                         // User faz login: guardar uid no uid e meter isEmployee = true
@@ -218,7 +224,10 @@ class Login : AppCompatActivity() {
                             commit()
                         }
 
-                        // TODO: Enviar o user para a sua pagina consoante o cargo
+                        val i = Intent(this@Login, MainActivityEmployee::class.java)
+                        startActivity(i)
+                        finish()
+
                     }
                     loginProgressView.visibility = View.GONE
                 }
