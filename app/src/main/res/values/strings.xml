@@ -43,7 +43,6 @@
     <string name="vehicle_name">Employee Truck</string>
     <string name="vehicle_vin">VIN Number</string>
     <string name="vehicle_info">Vehicle Information</string>
-    <string name="vehicle_brand">Brand</string>
     <string name="vehicle_model">Model</string>
     <string name="vehicle_plate">Plate</string>
     <string name="vehicle_consumption">Avg Consumption (l/Km)</string>
