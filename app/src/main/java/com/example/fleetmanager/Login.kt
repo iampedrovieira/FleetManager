@@ -63,11 +63,11 @@ class Login : AppCompatActivity() {
 
         if (isLogged()) {
             // TODO: Enviar o user para a sua pagina consoante o cargo
-            /**
-            val i = Intent(this@Login, MainActivity::class.java)
+            // TODO: AQUI É O DO EMPLOYEE BABE ZE CARLOS 
+            /*val i = Intent(this@Login, MainActivityEmployee::class.java)
             startActivity(i)
-            finish()
-             **/
+            finish()*/
+
         }
     }
 
