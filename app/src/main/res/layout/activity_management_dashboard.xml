@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ManagementDashboard">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/addVehicle"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/white"
+                android:drawableTop="@drawable/ic_tire"
+                android:paddingTop="50dp"
+                android:paddingBottom="40dp"
+                android:shadowColor="#A5A0A0"
+                android:text="@string/add_vehicle"
+                android:textColor="#000"
+                app:cornerRadius="15dp"
+                app:rippleColor="@color/primaryGrey" />
+
+            <Button
+                android:id="@+id/addEmployee"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/white"
+                android:drawableTop="@drawable/ic_employee"
+                android:paddingTop="50dp"
+                android:paddingBottom="40dp"
+                android:shadowColor="#A5A0A0"
+                android:text="@string/add_employee"
+                android:textColor="#000"
+                app:cornerRadius="15dp"
+                app:rippleColor="@color/primaryGrey" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/addInspection"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/white"
+                android:drawableTop="@drawable/ic_engine"
+                android:paddingTop="50dp"
+                android:paddingBottom="40dp"
+                android:shadowColor="#A5A0A0"
+                android:text="@string/add_inspection"
+                android:textColor="#000"
+                app:cornerRadius="15dp"
+                app:rippleColor="@color/primaryGrey" />
+
+            <Button
+                android:id="@+id/addInsurance"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/white"
+                android:drawableTop="@drawable/ic_insurance"
+                android:paddingTop="50dp"
+                android:paddingBottom="40dp"
+                android:shadowColor="#A5A0A0"
+                android:text="@string/add_insurance"
+                android:textColor="#000"
+                app:cornerRadius="15dp"
+                app:rippleColor="@color/primaryGrey" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/manageVehicles"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/white"
+                android:drawableTop="@drawable/ic_manage_vehicles"
+                android:paddingTop="50dp"
+                android:paddingBottom="40dp"
+                android:shadowColor="#A5A0A0"
+                android:text="@string/manage_vehicles"
+                android:textColor="#000"
+                app:cornerRadius="15dp"
+                app:rippleColor="@color/primaryGrey" />
+
+            <Button
+                android:id="@+id/addRevision"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/white"
+                android:drawableTop="@drawable/ic_revision"
+                android:paddingTop="50dp"
+                android:paddingBottom="40dp"
+                android:shadowColor="#A5A0A0"
+                android:text="@string/add_revision"
+                android:textColor="#000"
+                app:cornerRadius="15dp"
+                app:rippleColor="@color/primaryGrey" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

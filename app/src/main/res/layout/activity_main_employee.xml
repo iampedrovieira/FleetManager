@@ -5,11 +5,11 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivityEmployee">
 
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/fl_wrapper"
+        android:id="@+id/fl_wrapper_employee"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
@@ -24,15 +24,16 @@
     </androidx.core.widget.NestedScrollView>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
 
         <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottomAppBar"
+            android:id="@+id/bottomAppBarEmployee"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
@@ -41,28 +42,28 @@
             app:hideOnScroll="true">
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigationView"
+                android:id="@+id/bottomNavigationViewEmployee"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:background="@android:color/transparent"
                 app:itemIconTint="@color/nav_color"
+                app:itemRippleColor="@null"
                 app:itemTextColor="@color/nav_color"
-                app:menu="@menu/bottom_nav_menu"
-                app:itemRippleColor="@null"/>
+                app:menu="@menu/bottom_nav_menu_employee" />
         </com.google.android.material.bottomappbar.BottomAppBar>
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/openManagementDashboard"
+            android:id="@+id/playStopTrip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:defaultFocusHighlightEnabled="true"
-            android:onClick="openManagementDashboard"
-            android:src="@drawable/ic_add"
+            android:onClick="playStopTrip"
+            android:src="@drawable/ic_play"
             app:backgroundTint="@color/primaryBlue"
-            app:layout_anchor="@+id/bottomAppBar"
+            app:layout_anchor="@+id/bottomAppBarEmployee"
             app:tint="@android:color/white" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

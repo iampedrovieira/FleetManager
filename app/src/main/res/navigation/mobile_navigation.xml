@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_dashboard">
+
+    <fragment
+        android:id="@+id/navigation_garage"
+        android:name="com.example.fleetmanager.ui.garage.GarageFragment"
+        android:label="@string/title_garage"
+        tools:layout="@layout/fragment_garage" />
+
+    <fragment
+        android:id="@+id/navigation_dashboard"
+        android:name="com.example.fleetmanager.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard" />
+
+    <fragment
+        android:id="@+id/navigation_employees"
+        android:name="com.example.fleetmanager.ui.employees.EmployeesFragment"
+        android:label="@string/title_employees"
+        tools:layout="@layout/fragment_employees" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.fleetmanager.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_garage_employee"
+        android:name="com.example.fleetmanager.uiEmployee.garage.GarageEmployeeFragment"
+        android:label="@string/title_garage"
+        tools:layout="@layout/fragment_garage_employee" />
+
+    <fragment
+        android:id="@+id/navigation_dashboard_employee"
+        android:name="com.example.fleetmanager.uiEmployee.dashboard.DashboardEmployeeFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard_employee" />
+
+    <fragment
+        android:id="@+id/navigation_trips_employee"
+        android:name="com.example.fleetmanager.uiEmployee.trips.TripsEmployeeFragment"
+        android:label="@string/title_employees"
+        tools:layout="@layout/fragment_trips_employee" />
+    <fragment
+        android:id="@+id/navigation_profile_employee"
+        android:name="com.example.fleetmanager.uiEmployee.profile.ProfileEmployeeFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile_employee" />
+</navigation>
+

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fleetmanager">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,18 +11,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FleetManager">
-        <activity android:name=".VehicleDescription"></activity>
-        <activity android:name=".MainActivity"  />
-        <activity android:name=".VehicleRegistration">
+
+        <activity android:name=".VehicleDescription"/>
+        <activity android:name=".VehicleRegistration" />
+        <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                    <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
-        <meta-data
-            android:name="com.google.mlkit.vision.DEPENDENCIES"
-            android:value="ocr" />
+        <activity android:name=".MainActivity" android:label="@string/title_activity" />
+        <activity android:name=".MainActivityEmployee"/>
+        <activity android:name=".ManagementDashboard" android:parentActivityName=".MainActivity" />
+            <meta-data android:name="com.google.mlkit.vision.DEPENDENCIES" android:value="ocr" />
         <!-- To use multiple models: android:value="ocr,model2,model3" -->
     </application>
 
