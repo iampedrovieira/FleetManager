@@ -10,14 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FleetManager">
         <activity android:name=".VehicleDescription"></activity>
-        <activity android:name=".VehicleRegistration" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"  />
+        <activity android:name=".VehicleRegistration">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.mlkit.vision.DEPENDENCIES"
+            android:value="ocr" />
+        <!-- To use multiple models: android:value="ocr,model2,model3" -->
     </application>
 
 </manifest>

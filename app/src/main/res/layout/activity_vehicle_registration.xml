@@ -49,15 +49,17 @@
                     android:layout_height="wrap_content"
                     android:text="@string/vehicle_vin"/>
             </LinearLayout>
+
             <ImageButton
                 android:id="@+id/tensorflow"
-                android:background="@null"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ml_tensorflow"
                 android:layout_gravity="bottom"
+                android:layout_marginStart="50dp"
                 android:layout_marginBottom="16dp"
-                android:layout_marginStart="50dp"/>
+                android:background="@null"
+                android:onClick="autoCompliteHandler"
+                android:src="@drawable/ml_tensorflow" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/vehicle_types_layout"
