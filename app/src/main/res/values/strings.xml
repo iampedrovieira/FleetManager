@@ -12,4 +12,9 @@
     <string name="add_insurance">Add Insurance</string>
     <string name="manage_vehicles">Manage Vehicles</string>
     <string name="add_revision">Add Revision</string>
+    <string name="origin_title">Origin City</string>
+    <string name="destination_title">Destination City</string>
+    <string name="origin_hint">Type your city of origin</string>
+    <string name="destination_hint">Type your destination city</string>
+
 </resources>
