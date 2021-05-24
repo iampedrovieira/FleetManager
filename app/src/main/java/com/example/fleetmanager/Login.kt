@@ -55,6 +55,11 @@ class Login : AppCompatActivity() {
             startActivity(i)
             finish()
 
+            // TODO: AQUI É O DO EMPLOYEE BABE ZE CARLOS 
+            /*val i = Intent(this@Login, MainActivityEmployee::class.java)
+            startActivity(i)
+            finish()*/
+
         }
     }
 
@@ -113,6 +118,7 @@ class Login : AppCompatActivity() {
                                         }
 
                                         // TODO: Enviar o user para a sua pagina consoante o cargo
+
                                     } else {
                                         // se tem userid e companyid e employee
                                         // User faz login: guardar uid no uid e meter isEmployee = true
@@ -130,6 +136,8 @@ class Login : AppCompatActivity() {
                                         }
 
                                         // TODO: Enviar o user para a sua pagina consoante o cargo
+
+
                                     }
                                     loginProgressView.visibility = View.GONE
                                 }

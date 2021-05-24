@@ -2,8 +2,6 @@ package com.example.fleetmanager.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.BitmapFactory
-import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +11,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fleetmanager.R
 import com.example.fleetmanager.api.OutputEmployee
-import com.example.fleetmanager.api.OutputVehicle
 import com.example.fleetmanager.ui.employees.EmployeesFragment
 
 class EmployeesAdapter(val context: Context, val fragment: EmployeesFragment): RecyclerView.Adapter<EmployeesAdapter.EmployeesViewHolder>() {

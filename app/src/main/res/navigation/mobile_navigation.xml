@@ -27,4 +27,28 @@
         android:name="com.example.fleetmanager.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_garage_employee"
+        android:name="com.example.fleetmanager.uiEmployee.garage.GarageEmployeeFragment"
+        android:label="@string/title_garage"
+        tools:layout="@layout/fragment_garage_employee" />
+
+    <fragment
+        android:id="@+id/navigation_dashboard_employee"
+        android:name="com.example.fleetmanager.uiEmployee.dashboard.DashboardEmployeeFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_dashboard_employee" />
+
+    <fragment
+        android:id="@+id/navigation_trips_employee"
+        android:name="com.example.fleetmanager.uiEmployee.trips.TripsEmployeeFragment"
+        android:label="@string/title_employees"
+        tools:layout="@layout/fragment_trips_employee" />
+    <fragment
+        android:id="@+id/navigation_profile_employee"
+        android:name="com.example.fleetmanager.uiEmployee.profile.ProfileEmployeeFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile_employee" />
 </navigation>
+
