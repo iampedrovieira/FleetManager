@@ -1,5 +1,8 @@
 package com.example.fleetmanager.api
 
+import java.time.LocalDate
+import java.util.*
+
 data class OutputLogin(
     val status: Boolean,
     val userid: String,
@@ -30,3 +33,11 @@ data class OutputEmployee(
     val company_key: String,
     val on_service: Boolean
     )
+
+data class OutputTrip(
+    val trip_id: Int,
+    val travel_distance: Float,
+    val date: Date,
+    val license_plate: String,
+    val employee_key: String
+)

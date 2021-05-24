@@ -39,6 +39,9 @@
     <string name="employee_id">%1$1s</string>
     <string name="employee_status">On Service</string>
 
+    <string name="trip_date">%1$1s</string>
+    <string name="trip_distance">%1$1s KM</string>
+
     <!--Vehicle Registration and Description-->
     <string name="vehicle_name">Employee Truck</string>
     <string name="vehicle_vin">VIN Number</string>

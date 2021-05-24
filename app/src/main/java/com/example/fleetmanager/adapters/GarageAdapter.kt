@@ -10,12 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fleetmanager.R
 import com.example.fleetmanager.api.OutputVehicle
 import com.example.fleetmanager.ui.garage.GarageFragment
 
-class GarageAdapter(val context: Context, val fragment: GarageFragment): RecyclerView.Adapter<GarageAdapter.GarageViewHolder>() {
+class GarageAdapter(val context: Context, val fragment: Fragment): RecyclerView.Adapter<GarageAdapter.GarageViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var vehicles_list = emptyList<OutputVehicle>()
