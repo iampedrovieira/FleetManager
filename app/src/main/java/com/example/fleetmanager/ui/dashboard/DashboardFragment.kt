@@ -1,18 +1,24 @@
 package com.example.fleetmanager.ui.dashboard
 
 import android.app.ActionBar
+import android.app.Activity
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.location.Location
 import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.fleetmanager.MainActivity
 import com.example.fleetmanager.R
 import com.example.fleetmanager.dto.GoogleMapDTO
 import com.example.fleetmanager.dto.PolyLine
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -23,12 +29,17 @@ import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-private lateinit var gMap : GoogleMap
-private lateinit var teste:Button
+const val LOCATION_PERMISSION_REQUEST_CODE = 1000
 class DashboardFragment : Fragment(), OnMapReadyCallback {
-
+    private lateinit var gMap : GoogleMap
+    private lateinit var teste:Button
+    private lateinit var lastLocation : Location
+    private lateinit var locationRequest: LocationRequest
+    private lateinit var locationCallback : LocationCallback
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var toolbar : androidx.appcompat.widget.Toolbar
-
+    private lateinit var destination_input: EditText
+    var once: Boolean = false
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -38,15 +49,31 @@ class DashboardFragment : Fragment(), OnMapReadyCallback {
 
         toolbar = root.findViewById(R.id.toolbar)
         toolbar.title = getString(R.string.title_dashboard)
+        destination_input = root.findViewById(R.id.destination_input)
 
         teste = root.findViewById(R.id.teste)
         teste.setOnClickListener {
-           val url = getDirectionUrl(41.15822462366187, -8.62920595465106, 41.354887806044395, -8.747645333285346)
+           val url = getDirectionUrl(lastLocation.latitude, lastLocation.longitude, destination_input.text.toString())
             GetDirection(url).execute()
         }
 
         val mapFragment =  childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
+
+        locationCallback = object : LocationCallback(){
+            override fun onLocationResult(p0: LocationResult?) {
+                super.onLocationResult(p0)
+                lastLocation = p0!!.lastLocation
+                var location = LatLng(lastLocation.latitude, lastLocation.longitude)
+                if(!once){
+                    gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f))
+                    once = true
+                }
+            }
+        }
+        createLocationRequest()
 
         return root
     }
@@ -56,14 +83,19 @@ class DashboardFragment : Fragment(), OnMapReadyCallback {
 
         val currentLatLng = LatLng(41.15822462366187, -8.62920595465106)
         gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 12f))
+        if(ActivityCompat.checkSelfPermission(this.requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this.requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+            return
+        }
+        gMap.isMyLocationEnabled = true
     }
 
-    private fun getDirectionUrl(origin_lat: Double, origin_long: Double, destination_lat: Double, destination_long: Double) : String{
+    private fun getDirectionUrl(origin_lat: Double, origin_long: Double, address : String) : String{
         //origin of route
         val str_origin = "origin=" + origin_lat + "," + origin_long
 
         //origin of route
-        val str_destination = "destination=" + destination_lat + "," + destination_long
+        val str_destination = "destination=" + address.split(" ").joinToString("+")
 
         val mode = "mode=driving"
 
@@ -73,6 +105,16 @@ class DashboardFragment : Fragment(), OnMapReadyCallback {
         val output = "json"
 
         return "https://maps.googleapis.com/maps/api/directions/$output?$parameters&key=AIzaSyAUWK2jFqvY1X2QyHAJLLR9qI1r7hIPIK4"
+    }
+
+    override fun onPause() {
+        super.onPause()
+        fusedLocationClient.removeLocationUpdates(locationCallback)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        startLocationUpdates()
     }
 
     inner class GetDirection(val url: String) : AsyncTask<Void,Void, List<List<LatLng>>>(){
@@ -157,5 +199,19 @@ class DashboardFragment : Fragment(), OnMapReadyCallback {
         }
 
         return poly
+    }
+
+    private fun createLocationRequest(){
+        locationRequest = LocationRequest()
+        locationRequest.interval = 5000
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+    }
+
+    private fun startLocationUpdates(){
+        if(ActivityCompat.checkSelfPermission(this.requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this.requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
+            return
+        }
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
     }
 }
