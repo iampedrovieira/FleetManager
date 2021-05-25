@@ -39,22 +39,22 @@ class MainActivityEmployee : AppCompatActivity() {
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.navigation_dashboard -> {
+                R.id.navigation_dashboard_employee -> {
                     setCurrentFragment(dashboardFragment)
-                    Log.i(TAG, "Home Selected")
+                    Log.i("aa", "Home Selected")
                     badgeClear(R.id.navigation_dashboard_employee)
                 }
-                R.id.navigation_garage -> {
+                R.id.navigation_garage_employee -> {
                     setCurrentFragment(garageFragment)
                     Log.i(TAG, "garage Selected")
                     badgeClear(R.id.navigation_garage_employee)
                 }
-                R.id.navigation_employees -> {
+                R.id.navigation_trips_employee -> {
                     setCurrentFragment(tripsFragment)
                     Log.i(TAG, "trips Selected")
                     badgeClear(R.id.navigation_trips_employee)
                 }
-                R.id.navigation_profile -> {
+                R.id.navigation_profile_employee -> {
                     setCurrentFragment(profileFragment)
                     Log.i(TAG, "profile Selected")
                     badgeClear(R.id.navigation_profile_employee)

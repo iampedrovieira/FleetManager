@@ -35,6 +35,39 @@ class GarageEmployeeFragment : Fragment() {
         toolbar = root.findViewById(R.id.toolbar)
         toolbar.title = getString(R.string.title_garage)
 
+        // Recycler View
+        val truck_recycler = root.findViewById<RecyclerView>(R.id.truck_recycler)
+        val truck_adapter = GarageAdapter(this.requireContext(), this)
+        truck_recycler.adapter = truck_adapter
+        truck_recycler.layoutManager = LinearLayoutManager(this.context)
+
+        val sharedPref: SharedPreferences = requireActivity().getSharedPreferences(
+            getString(R.string.preference_file_key),
+            Context.MODE_PRIVATE
+        )
+
+        var company_key = sharedPref.getString(getString(R.string.company), "aaaa")
+        val request = ServiceBuilder.buildService(Endpoints::class.java)
+        val callVehiclePost = request.getVehicles(company_key)
+
+        callVehiclePost.enqueue(object: Callback<List<OutputVehicle>> {
+            override fun onResponse(
+                call: Call<List<OutputVehicle>>,
+                response: Response<List<OutputVehicle>>
+            ) {
+                if(response.isSuccessful){
+                    // Registering the Kotlin module with the ObjectMpper instance
+                    //val list: List<OutputVehicle> =
+                    Log.d("aa", response.body().toString())
+                    truck_adapter.setVehicles(response.body()!!)
+                }
+            }
+
+            override fun onFailure(call: Call<List<OutputVehicle>>, t: Throwable) {
+                Log.d("FALHOU", "${t.message}")
+            }
+        })
+
         return root
     }
 }
