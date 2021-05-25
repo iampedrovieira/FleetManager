@@ -5,6 +5,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_employees">Employees</string>
     <string name="title_profile">Profile</string>
+    <string name="title_trips">Trips</string>
     <string name="title_management_dashboard">Management Dashboard</string>
     <string name="add_vehicle">Add Vehicle</string>
     <string name="add_employee">Add Employee</string>
@@ -16,5 +17,55 @@
     <string name="destination_title">Destination City</string>
     <string name="origin_hint">Type your city of origin</string>
     <string name="destination_hint">Type your destination city</string>
+
+    <!-- Shared Preferences -->
+    <string name="preference_file_key">cn-sp</string>
+    <string name="logged">logged</string>
+    <string name="uid">uid</string>
+    <string name="isEmployee">isEmplyoee</string>
+    <string name="company">company</string>
+
+    <!-- Login -->
+    <string name="email">Email</string>
+    <string name="passwd">Password</string>
+    <string name="login">Login</string>
+    <string name="google">Google</string>
+    <string name="orLogin">or login with:</string>
+    <string name="loginFailed">Login failed</string>
+    <string name="emptyFields">Empty Fields</string>
+
+    <!-- Vehicles -->
+    <string name="vehicle_brand">%1$1s</string>
+    <string name="vehicle_license">%1$1s</string>
+
+    <!-- Employees -->
+    <string name="employee_name">%1$1s</string>
+    <string name="employee_id">%1$1s</string>
+    <string name="employee_status">On Service</string>
+
+    <string name="trip_date">%1$1s</string>
+    <string name="trip_distance">%1$1s KM</string>
+
+    <!--Vehicle Registration and Description-->
+    <string name="vehicle_name">Employee Truck</string>
+    <string name="vehicle_vin">VIN Number</string>
+    <string name="vehicle_info">Vehicle Information</string>
+    <string name="vehicle_model">Model</string>
+    <string name="vehicle_plate">Plate</string>
+    <string name="vehicle_consumption">Avg Consumption (l/Km)</string>
+    <string name="vehicle_other_info">Other Information</string>
+    <string name="vehicle_Kilometers">Kilometers</string>
+    <string name="vehicle_last_revision">Last Revision</string>
+    <string name="vehicle_revision_value">Revision Value</string>
+    <string name="vehicle_last_revision_km">Last Revision Kilometers</string>
+    <string name="vehicle_insurance_date">Insurance Date</string>
+    <string name="vehicle_insurance_value">Insurance Value</string>
+    <string name="vehicle_brand_name">Vehicle Brand</string>
+    <string name="btn_add">Add</string>
+
+    <!--Alert Dialog-->
+    <string name="confirm">Confirm</string>
+    <string name="reply">Reply</string>
+
 
 </resources>

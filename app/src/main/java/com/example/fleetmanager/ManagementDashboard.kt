@@ -1,7 +1,9 @@
 package com.example.fleetmanager
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 
 class ManagementDashboard : AppCompatActivity() {
@@ -18,7 +20,20 @@ class ManagementDashboard : AppCompatActivity() {
         toolbar.title = getString(R.string.title_management_dashboard)
         setSupportActionBar(toolbar)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back);
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+
     }
+
+    fun addVehicle(view: View) {
+        val i = Intent(this@ManagementDashboard, VehicleRegistration::class.java)
+        startActivity(i)
+        finish()
+    }
+    fun addEmployee(view: View) {}
+    fun addInspection(view: View) {}
+    fun addInsurance(view: View) {}
+    fun manageVehicles(view: View) {}
+    fun addRevision(view: View) {}
 }

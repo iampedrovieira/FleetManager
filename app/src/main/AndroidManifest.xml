@@ -8,6 +8,7 @@
          location permissions for the "MyLocation" functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -37,12 +38,20 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity">
+        <activity android:name=".VehicleDescription"/>
+        <activity android:name=".VehicleRegistration"
+            android:parentActivityName=".ManagementDashboard"/>
+        <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                    <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" android:label="@string/title_activity" />
+        <activity android:name=".MainActivityEmployee"/>
+        <activity android:name=".ManagementDashboard" android:parentActivityName=".MainActivity" />
+            <meta-data android:name="com.google.mlkit.vision.DEPENDENCIES" android:value="ocr" />
+        <!-- To use multiple models: android:value="ocr,model2,model3" -->
     </application>
 
 </manifest>
