@@ -56,4 +56,9 @@
     <string name="vehicle_brand_name">Vehicle Brand</string>
     <string name="btn_add">Add</string>
 
+    <!--Alert Dialog-->
+    <string name="confirm">Confirm</string>
+    <string name="reply">Reply</string>
+
+
 </resources>

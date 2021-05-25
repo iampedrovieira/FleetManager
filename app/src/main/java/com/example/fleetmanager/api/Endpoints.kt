@@ -1,5 +1,6 @@
 package com.example.fleetmanager.api
 
+import com.example.fleetmanager.entities.TruksDetailsPlate
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -21,6 +22,9 @@ interface Endpoints {
     fun getEmployees(@Field("companyKey") company_key: String?): Call<List<OutputEmployee>>
 
 
+    @FormUrlEncoded
+    @POST("external/vehicle-by-plate")
+    fun getVehicleDetails(@Field("plate") plate: String?): Call<TruksDetailsPlate>
 
     /*@POST("users/login")
     fun login(@Body firebaseKey: String): Call<OutputLogin>*/
