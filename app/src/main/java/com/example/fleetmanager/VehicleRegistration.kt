@@ -60,9 +60,18 @@ private var datePickerC: Boolean = false
 
 class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
+    private lateinit var toolbar : androidx.appcompat.widget.Toolbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vehicle_registration)
+
+        toolbar = findViewById(R.id.toolbar)
+        toolbar.title = getString(R.string.add_vehicle)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back);
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         vehicle_name = findViewById(R.id.vehicle_name)
         vin = findViewById(R.id.vehicle_vin)
@@ -285,8 +294,6 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         showDatePickerDialog();
 
     }
-
-
 
     fun showDatePickerDialog() {
         val datePickerDialog = DatePickerDialog(

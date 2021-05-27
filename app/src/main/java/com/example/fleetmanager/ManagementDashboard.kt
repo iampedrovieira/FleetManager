@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 
 class ManagementDashboard : AppCompatActivity() {
 
@@ -29,11 +28,13 @@ class ManagementDashboard : AppCompatActivity() {
     fun addVehicle(view: View) {
         val i = Intent(this@ManagementDashboard, VehicleRegistration::class.java)
         startActivity(i)
-        finish()
     }
     fun addEmployee(view: View) {}
     fun addInspection(view: View) {}
     fun addInsurance(view: View) {}
     fun manageVehicles(view: View) {}
-    fun addRevision(view: View) {}
+    fun addRevision(view: View) {
+        val i = Intent(this@ManagementDashboard, AddRevision::class.java)
+        startActivity(i)
+    }
 }

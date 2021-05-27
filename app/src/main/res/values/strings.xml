@@ -2,6 +2,7 @@
     <string name="app_name">FleetManager</string>
     <string name="title_activity">MainActivity</string>
     <string name="title_garage">Garage</string>
+    <string name="title_activity_add_revision">Add Revision</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_employees">Employees</string>
     <string name="title_profile">Profile</string>
@@ -63,9 +64,20 @@
     <string name="vehicle_brand_name">Vehicle Brand</string>
     <string name="btn_add">Add</string>
 
-    <!--Alert Dialog-->
+    <!-- Alert Dialog -->
     <string name="confirm">Confirm</string>
     <string name="reply">Reply</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 
+    <!-- Revisions -->
+    <string name="company_name">Company</string>
+    <string name="revision_price">Price €</string>
+    <string name="payment_date">Payment Date</string>
+    <string name="other_information">Other Information:</string>
+    <string name="additional_info">Additional Info</string>
 
 </resources>
