@@ -20,8 +20,12 @@ interface Endpoints {
     @POST("company/employees")
     fun getEmployees(@Field("companyKey") company_key: String?): Call<List<OutputEmployee>>
 
+    // Charts
+    @FormUrlEncoded
+    @POST("company/chart1")
+    fun getchart1(@Field("companyKey") company_key: String?): Call<List<Chart1>>
 
-
-    /*@POST("users/login")
-    fun login(@Body firebaseKey: String): Call<OutputLogin>*/
+    @FormUrlEncoded
+    @POST("company/chart2")
+    fun getchart2(@Field("companyKey") company_key: String?): Call<List<Chart2>>
 }

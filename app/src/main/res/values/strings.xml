@@ -39,4 +39,9 @@
     <string name="employee_id">%1$1s</string>
     <string name="employee_status">On Service</string>
 
+    <!-- Charts -->
+    <string name="chart1">Cost per month</string>
+    <string name="chart2">Top spending cars</string>
+    <string name="month">Month</string>
+    <string name="car">Car</string>
 </resources>

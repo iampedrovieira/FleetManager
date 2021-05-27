@@ -1,21 +1,40 @@
 package com.example.fleetmanager.uiManagement.dashboard
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import com.example.fleetmanager.R
-import com.github.aachartmodel.aainfographics.aachartcreator.*
+import com.example.fleetmanager.api.Chart1
+import com.example.fleetmanager.api.Chart2
+import com.example.fleetmanager.api.Endpoints
+import com.example.fleetmanager.api.ServiceBuilder
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.data.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DashboardFragment : Fragment() {
 
     private lateinit var toolbar: androidx.appcompat.widget.Toolbar
-    private lateinit var chart1: AAChartView
-    private lateinit var chart2: AAChartView
-    private lateinit var chart3: AAChartView
-    private lateinit var chart4: AAChartView
-    private lateinit var chart5: AAChartView
+    private lateinit var chart1: BarChart
+    private lateinit var chart2: PieChart
+    private lateinit var chart1Data: List<Chart1>
+    private lateinit var chart2Data: List<Chart2>
+    private lateinit var chart1ProgressView: ProgressBar
+    private lateinit var chart2ProgressView: ProgressBar
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,41 +46,111 @@ class DashboardFragment : Fragment() {
         toolbar = root.findViewById(R.id.toolbar)
         toolbar.title = getString(R.string.title_dashboard)
 
-        chart1 = root.findViewById(R.id.aa_chart_1)
-        chart2 = root.findViewById(R.id.aa_chart_2)
-        chart3 = root.findViewById(R.id.aa_chart_3)
-        chart4 = root.findViewById(R.id.aa_chart_4)
-        chart5 = root.findViewById(R.id.aa_chart_5)
+        chart1 = root.findViewById(R.id.chart_1)
+        chart2 = root.findViewById(R.id.chart_2)
 
-        val aaChartModel : AAChartModel = AAChartModel()
-            .chartType(AAChartType.Area)
-            .title("title")
-            .backgroundColor(R.attr.backgroundColor)
-            .axesTextColor(R.color.white.toString())
-            .dataLabelsEnabled(true)
-            .animationType(AAChartAnimationType.EaseInQuad)
-            .series(arrayOf(
-                AASeriesElement()
-                    .name("Tokyo")
-                    .data(arrayOf(7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6)),
-                AASeriesElement()
-                    .name("NewYork")
-                    .data(arrayOf(0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5)),
-                AASeriesElement()
-                    .name("London")
-                    .data(arrayOf(0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0)),
-                AASeriesElement()
-                    .name("Berlin")
-                    .data(arrayOf(3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8))
-            )
-            )
+        chart1ProgressView = root.findViewById(R.id.chart1Progress)
+        chart2ProgressView = root.findViewById(R.id.chart2Progress)
 
-        chart1.aa_drawChartWithChartModel(aaChartModel)
-        chart2.aa_drawChartWithChartModel(aaChartModel)
-        chart3.aa_drawChartWithChartModel(aaChartModel)
-        chart4.aa_drawChartWithChartModel(aaChartModel)
-        chart5.aa_drawChartWithChartModel(aaChartModel)
+        getCharts()
 
         return root
+    }
+
+    private fun getCharts() {
+        chart1ProgressView.visibility = View.VISIBLE
+        chart2ProgressView.visibility = View.VISIBLE
+
+        val sharedPref: SharedPreferences = requireActivity().getSharedPreferences(
+            getString(R.string.preference_file_key),
+            Context.MODE_PRIVATE
+        )
+        val company_key = sharedPref.getString(getString(R.string.company), "aaaa")
+        val request = ServiceBuilder.buildService(Endpoints::class.java)
+
+        // Chart 1
+        val callChart1 = request.getchart1(company_key)
+
+        callChart1.enqueue(object : Callback<List<Chart1>> {
+            override fun onResponse(
+                call: Call<List<Chart1>>,
+                response: Response<List<Chart1>>
+            ) {
+                if (response.isSuccessful) {
+                    chart1ProgressView.visibility = View.INVISIBLE
+                    chart1.visibility = View.VISIBLE
+
+                    Log.d("****DashboardFragment", response.body().toString())
+                    chart1Data = response.body()!!
+
+                    var xvalues = ArrayList<String>()
+                    var barEntries = ArrayList<BarEntry>()
+
+                    for (i in chart1Data.indices) {
+                        val d = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale.ENGLISH).parse(chart1Data[i].mes)
+                        val cal = Calendar.getInstance()
+                        cal.time = d
+                        chart1Data[i].mes = SimpleDateFormat("MMMM").format(cal.time)
+
+                        xvalues.add(chart1Data[i].mes)
+                        barEntries.add(BarEntry(chart1Data[i].gastos.toFloat(), i))
+                    }
+
+                    val barDataset = BarDataSet(barEntries, getString(R.string.month))
+                    barDataset.color = Color.rgb(3, 47, 100)
+                    val data = BarData(xvalues, barDataset)
+
+                    chart1.data = data
+                    chart1.setBackgroundColor(resources.getColor(R.color.white))
+                    chart1.animateXY(1000, 1000)
+                    chart1.setDescription(getString(R.string.chart1))
+                }
+            }
+
+            override fun onFailure(call: Call<List<Chart1>>, t: Throwable) {
+                Log.d("****DashboardFragment", "${t.message}")
+            }
+        })
+
+        // Chart 2
+        val callChart2 = request.getchart2(company_key)
+        callChart2.enqueue(object : Callback<List<Chart2>> {
+            override fun onResponse(
+                call: Call<List<Chart2>>,
+                response: Response<List<Chart2>>
+            ) {
+                if (response.isSuccessful) {
+                    chart2ProgressView.visibility = View.INVISIBLE
+                    chart2.visibility = View.VISIBLE
+
+                    Log.d("****DashboardFragment", response.body().toString())
+                    chart2Data = response.body()!!
+
+                    var xvalues = ArrayList<String>()
+                    var pieChartEntries = ArrayList<Entry>()
+
+                    for (i in chart2Data.indices) {
+                        xvalues.add(chart2Data[i].license_plate)
+                        pieChartEntries.add(Entry(chart2Data[i].costs.toFloat(), i))
+                    }
+                    val pieDataset = PieDataSet(pieChartEntries, getString(R.string.car))
+                    pieDataset.color = Color.rgb(3, 47, 100)
+                    pieDataset.sliceSpace = 2.5f
+                    val data = PieData(xvalues, pieDataset)
+
+                    chart2.data = data
+                    chart2.setBackgroundColor(resources.getColor(R.color.white))
+                    chart2.animateXY(1500, 1500)
+                    chart2.setDescription(getString(R.string.chart2))
+
+                    val legend: Legend = chart2.legend
+                    legend.position = Legend.LegendPosition.LEFT_OF_CHART
+                }
+            }
+
+            override fun onFailure(call: Call<List<Chart2>>, t: Throwable) {
+                Log.d("****DashboardFragment", "${t.message}")
+            }
+        })
     }
 }
