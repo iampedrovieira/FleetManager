@@ -19,7 +19,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FleetManager">
         <activity android:name=".AddReminder"></activity>
-        <activity android:name=".uiEmployee.AddReminder" />
         <activity android:name=".RevisionSelectionArea" />
         <activity
             android:name=".AddRevision"

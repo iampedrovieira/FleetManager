@@ -12,9 +12,8 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.util.*
 
-private lateinit var payment_date: TextInputEditText
+private lateinit var payment_date: EditText
 private lateinit var payment_date_layout: TextInputLayout
-private var datePicker: Boolean = false
 
 class AddRevision : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
@@ -54,7 +53,7 @@ class AddRevision : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val date = "$dayOfMonth/${month + 1}/$year"
-        if(datePicker)
-            payment_date_layout.editText?.setText(date)
+        payment_date.setText(date, TextView.BufferType.EDITABLE)
+
     }
 }
