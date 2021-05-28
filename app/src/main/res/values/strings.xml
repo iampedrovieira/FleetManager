@@ -18,6 +18,12 @@
     <string name="destination_title">Destination City</string>
     <string name="origin_hint">Type your city of origin</string>
     <string name="destination_hint">Type your destination city</string>
+    <string name="create_reminder">Create Reminder</string>
+    <string name="add_revision_note">Add Revision Note</string>
+    <string name="location">Location</string>
+    <string name="employee_email">Employee E-mail</string>
+    <string name="date">Date</string>
+    <string name="reminder_title">Title</string>
 
     <!-- Shared Preferences -->
     <string name="preference_file_key">cn-sp</string>

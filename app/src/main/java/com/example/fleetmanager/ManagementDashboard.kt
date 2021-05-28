@@ -34,7 +34,7 @@ class ManagementDashboard : AppCompatActivity() {
     fun addInsurance(view: View) {}
     fun manageVehicles(view: View) {}
     fun addRevision(view: View) {
-        val i = Intent(this@ManagementDashboard, AddRevision::class.java)
+        val i = Intent(this@ManagementDashboard, RevisionSelectionArea::class.java)
         startActivity(i)
     }
 }
