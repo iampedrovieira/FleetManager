@@ -17,6 +17,7 @@
     <string name="destination_title">Destination City</string>
     <string name="origin_hint">Type your city of origin</string>
     <string name="destination_hint">Type your destination city</string>
+    <string name="chat">Chat</string>
 
     <!-- Shared Preferences -->
     <string name="preference_file_key">cn-sp</string>

@@ -2,9 +2,7 @@ package com.example.fleetmanager.uiEmployee.dashboard
 
 import android.app.ActionBar
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import com.example.fleetmanager.MainActivity
 import com.example.fleetmanager.R
@@ -22,7 +20,14 @@ class DashboardEmployeeFragment : Fragment() {
 
         toolbar = root.findViewById(R.id.toolbar)
         toolbar.title = getString(R.string.title_dashboard)
+        setHasOptionsMenu(true)
 
+        toolbar.menu =
         return root
+    }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.dashboard_menu, menu);
+
+        super.onCreateOptionsMenu(menu, inflater)
     }
 }
