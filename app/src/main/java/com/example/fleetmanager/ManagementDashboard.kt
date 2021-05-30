@@ -9,6 +9,7 @@ class ManagementDashboard : AppCompatActivity() {
 
 
     private lateinit var toolbar : androidx.appcompat.widget.Toolbar
+    private val DASHBOARD_TYPE: String = "Dashboard_Clicked"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,11 +31,20 @@ class ManagementDashboard : AppCompatActivity() {
         startActivity(i)
     }
     fun addEmployee(view: View) {}
-    fun addInspection(view: View) {}
-    fun addInsurance(view: View) {}
+    fun addInspection(view: View) {
+        val i = Intent(this@ManagementDashboard, RevisionSelectionArea::class.java)
+        i.putExtra(DASHBOARD_TYPE, "inspection")
+        startActivity(i)
+    }
+    fun addInsurance(view: View) {
+        val i = Intent(this@ManagementDashboard, RevisionSelectionArea::class.java)
+        i.putExtra(DASHBOARD_TYPE, "insurance")
+        startActivity(i)
+    }
     fun manageVehicles(view: View) {}
     fun addRevision(view: View) {
         val i = Intent(this@ManagementDashboard, RevisionSelectionArea::class.java)
+        i.putExtra(DASHBOARD_TYPE, "revision")
         startActivity(i)
     }
 }

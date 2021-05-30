@@ -86,6 +86,34 @@
                     android:layout_height="wrap_content"
                     android:focusable="false"/>
             </com.google.android.material.textfield.TextInputLayout>
+            <LinearLayout
+                android:id="@+id/approved_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/paymentDateTextField"
+                app:layout_constraintBottom_toTopOf="@id/other_info_txt"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="20dp"
+                android:visibility="invisible">
+                <TextView
+                    android:id="@+id/approved"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="33dp"
+                    android:text="@string/other_information"
+
+                    />
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="20dp"/>
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/other_info_txt"
@@ -94,7 +122,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="50dp"
                 android:text="@string/other_information"
-                app:layout_constraintTop_toBottomOf="@id/paymentDateTextField"
+                app:layout_constraintTop_toBottomOf="@id/approved_layout"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <com.google.android.material.textfield.TextInputLayout

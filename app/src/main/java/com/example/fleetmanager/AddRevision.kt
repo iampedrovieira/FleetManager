@@ -18,6 +18,9 @@ private lateinit var payment_date_layout: TextInputLayout
 class AddRevision : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     private lateinit var toolbar : androidx.appcompat.widget.Toolbar
+    private lateinit var type_of_note: String
+    private lateinit var isApprovedLayout: View
+    private lateinit var isApproved: Switch
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +36,15 @@ class AddRevision : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
         payment_date = findViewById(R.id.paymentDateText)
         payment_date_layout = findViewById(R.id.paymentDateTextField)
+
+        type_of_note = intent.getStringExtra("Type_note")!!
+        //LinearLayout where the switch is inserted
+        isApprovedLayout = findViewById(R.id.approved_layout)
+
+
+        if(type_of_note.equals("inspection")){
+            isApprovedLayout.visibility = View.VISIBLE
+        }
 
         payment_date.setOnClickListener { openDatePicker(payment_date) }
     }
