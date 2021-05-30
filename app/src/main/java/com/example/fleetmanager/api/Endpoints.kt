@@ -28,4 +28,16 @@ interface Endpoints {
     @FormUrlEncoded
     @POST("company/chart2")
     fun getchart2(@Field("companyKey") company_key: String?): Call<List<Chart2>>
+
+    @FormUrlEncoded
+    @POST("company/chart3")
+    fun getchart3(@Field("companyKey") company_key: String?): Call<List<Chart3>>
+
+    @FormUrlEncoded
+    @POST("company/chart4")
+    fun getchart4(@Field("companyKey") company_key: String?): Call<List<Chart4>>
+
+    @FormUrlEncoded
+    @POST("company/chart5")
+    fun getchart5(@Field("companyKey") company_key: String?): Call<List<Chart5>>
 }

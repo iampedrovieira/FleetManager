@@ -42,6 +42,11 @@
     <!-- Charts -->
     <string name="chart1">Cost per month</string>
     <string name="chart2">Top spending cars</string>
+    <string name="chart3">Trips per month</string>
+    <string name="chart4">Top spending cars</string>
+    <string name="chart5">Top spending cars</string>
     <string name="month">Month</string>
     <string name="car">Car</string>
+    <string name="nEmployees">Employees</string>
+    <string name="active">Active</string>
 </resources>

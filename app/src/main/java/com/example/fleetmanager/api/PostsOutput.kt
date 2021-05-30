@@ -1,5 +1,7 @@
 package com.example.fleetmanager.api
 
+import java.util.*
+
 data class OutputLogin(
     val status: Boolean,
     val userid: String,
@@ -39,4 +41,17 @@ data class Chart1(
 data class Chart2(
     val license_plate: String,
     val costs: String,
+)
+
+data class Chart3(
+    var mes: String,
+    val trips: Int,
+)
+
+data class Chart4(
+    val empregados: Int,
+)
+
+data class Chart5(
+    val emservico: Int,
 )

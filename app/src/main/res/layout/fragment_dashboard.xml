@@ -13,18 +13,79 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/chart_4"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/white"
+        android:clickable="false"
+        android:drawableTop="@drawable/ic_baseline_groups_24"
+        android:paddingTop="20dp"
+        android:shadowColor="#A5A0A0"
+        android:text="@string/nEmployees"
+        android:textColor="#000"
+        android:visibility="invisible"
+        app:cornerRadius="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <ProgressBar
+        android:id="@+id/chart4Progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/chart_4" />
+
+
+    <Button
+        android:id="@+id/chart_5"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/white"
+        android:clickable="false"
+        android:drawableTop="@drawable/ic_round_play_arrow_24"
+        android:drawableTint="@color/primaryGrey"
+        android:paddingTop="20dp"
+        android:shadowColor="#A5A0A0"
+        android:text="@string/employee_status"
+        android:textColor="#000"
+        android:visibility="invisible"
+        app:cornerRadius="15dp"
+        app:layout_constraintStart_toEndOf="@+id/chart_4"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/primaryGrey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chart_5" />
+
+
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart_1"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_margin="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="32dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/separator" />
 
     <ProgressBar
         android:id="@+id/chart1Progress"
@@ -35,20 +96,19 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="@+id/chart_1" />
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/chart_2"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="32dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chart_1" />
-
 
     <ProgressBar
         android:id="@+id/chart2Progress"
@@ -60,4 +120,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/chart_2" />
+
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/chart_3"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chart_2" />
+
+    <ProgressBar
+        android:id="@+id/chart3Progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/chart_3" />
 </androidx.constraintlayout.widget.ConstraintLayout>
