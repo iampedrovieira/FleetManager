@@ -5,11 +5,14 @@ import android.util.Log
 import com.example.fleetmanager.chat.model.ChatChannel
 import com.example.fleetmanager.chat.model.*
 import com.example.fleetmanager.chat.model.recyclerview.item.TextMessageItem
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.firestore.auth.User
+import com.google.firebase.ktx.Firebase
 import com.xwray.groupie.kotlinandroidextensions.Item
 
 object FirestoreUtil {
@@ -19,19 +22,21 @@ object FirestoreUtil {
         get() = firestoreInstance.document("users/${FirebaseAuth.getInstance().currentUser?.uid
             ?: throw NullPointerException("UID is null.")}")
 
+
     private val chatChannelsCollectionRef = firestoreInstance.collection("chatChannels")
 
     fun getCurrentUser(onComplete: (User) -> Unit) {
-        currentUserDocRef.get()
-            .addOnSuccessListener {
-                onComplete(it.toObject(User::class.java)!!)
-            }
+        //currentUserDocRef.get()
+          //  .addOnSuccessListener {
+            //    onComplete(it.toObject(User::class.java)!!)
+            //}
     }
 
-    fun getOrCreateChatChannel(otherUserId: String,
-                               onComplete: (channelId: String) -> Unit) {
+    fun getOrCreateChatChannel(otherUserId: String,onComplete: (channelId: String) -> Unit) {
+
         currentUserDocRef.collection("engagedChatChannels")
             .document(otherUserId).get().addOnSuccessListener {
+
                 if (it.exists()) {
                     onComplete(it["channelId"] as String)
                     return@addOnSuccessListener
@@ -85,7 +90,7 @@ object FirestoreUtil {
     }
 
     fun setFCMRegistrationTokens(registrationTokens: MutableList<String>) {
-        currentUserDocRef.update(mapOf("registrationTokens" to registrationTokens))
+        //currentUserDocRef.update(mapOf("registrationTokens" to registrationTokens))
     }
     //endregion FCM
 }
