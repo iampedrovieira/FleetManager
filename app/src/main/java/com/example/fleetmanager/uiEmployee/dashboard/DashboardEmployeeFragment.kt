@@ -22,7 +22,6 @@ class DashboardEmployeeFragment : Fragment() {
         toolbar.title = getString(R.string.title_dashboard)
         setHasOptionsMenu(true)
 
-        toolbar.menu =
         return root
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

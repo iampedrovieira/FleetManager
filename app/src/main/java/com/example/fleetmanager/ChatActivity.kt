@@ -13,6 +13,7 @@ import com.example.fleetmanager.chat.model.TextMessage
 import com.example.fleetmanager.util.AppConstants
 import com.example.fleetmanager.util.FirestoreUtil
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ListenerRegistration
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Section
@@ -39,24 +40,22 @@ class ChatActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back);
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val sender_name =intent.getStringExtra(AppConstants.USER_NAME)
+
 
         val otherUserid = intent.getStringExtra(AppConstants.USER_ID)
         val sharedPref: SharedPreferences = getSharedPreferences(
             R.string.preference_file_key.toString(),
             Context.MODE_PRIVATE
         )
-        val sender_key = sharedPref.getString(R.string.employee_id.toString(), "")
-        Log.v("aaaaaaaaaaaaaaaaaaa",otherUserid!!)
+        val sender_key = FirebaseAuth.getInstance().currentUser!!.uid
             FirestoreUtil.getOrCreateChatChannel(otherUserid!!){channelId ->
                 messageListenerRegistration = FirestoreUtil.addChatMessagesListener(channelId,this,this::updateRecyclerView)
                 fab_send_image.setOnClickListener{
-                    val messageToSend = TextMessage(editText.text.toString(),Calendar.getInstance().time,sender_key!!,otherUserid!!,sender_name!!,MessageType.TEXT)
+                    val messageToSend = TextMessage(editText.text.toString(),Calendar.getInstance().time,sender_key!!,otherUserid!!,"",MessageType.TEXT)
                     editText.setText("")
                     FirestoreUtil.sendMessage(messageToSend,channelId)
                 }
             }
-        Log.v("aaaaaaaaaaaaaaaaaaa",intent.getStringExtra(AppConstants.USER_NAME).toString())
     }
 
     private fun updateRecyclerView(messages:List<Item>){
