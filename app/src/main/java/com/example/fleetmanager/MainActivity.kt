@@ -46,6 +46,9 @@ class MainActivity : AppCompatActivity() {
                     badgeClear(R.id.navigation_garage)
                 }
                 R.id.navigation_employees -> {
+                    var bundle = Bundle()
+                    bundle.putBoolean("admin",true)
+                    employeesFragment.arguments = bundle
                     setCurrentFragment(employeesFragment)
                     Log.i(TAG, "employees Selected")
                     badgeClear(R.id.navigation_employees)
@@ -83,4 +86,5 @@ class MainActivity : AppCompatActivity() {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
         startActivity(intent)
     }
+
 }

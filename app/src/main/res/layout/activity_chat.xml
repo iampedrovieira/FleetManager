@@ -40,7 +40,8 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/primaryBlue"
             android:scaleX="-1"
-            android:src="@drawable/ic_send_chat" />
+            android:src="@drawable/ic_send_chat"
+            android:tint="@color/white"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/chatTextField"

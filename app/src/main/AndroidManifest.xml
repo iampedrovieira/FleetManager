@@ -16,13 +16,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FleetManager">
+        <activity android:name=".uiEmployee.chat.chat_employee"></activity>
         <activity android:name=".ChatActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivityEmployee"/>
+                android:value=".MainActivityEmployee" />
+
             <intent-filter>
-                <action android:name="ChatActivity"/>
-                <category android:name="android.intent.category.DEFAULT"/>
+                <action android:name="ChatActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <!--

@@ -40,8 +40,8 @@ class TextMessageItem(val message: TextMessage, val context: Context):Item() {
             viewHolder.itemView.message_root.apply {
                 setBackgroundResource(R.color.primaryBlue)
 
-                //viewHolder.itemView.textView_message_text.setTextColor(R.color.browser_actions_bg_grey)
-                //viewHolder.itemView.textView_message_time.setTextColor(R.color.browser_actions_bg_grey)
+                //viewHolder.itemView.textView_message_text.setTextColor(R.color.white)
+                //viewHolder.itemView.textView_message_time.setTextColor(R.color.white)
                 val lParams = FrameLayout.LayoutParams(WRAP_CONTENT,WRAP_CONTENT,Gravity.END)
                 this.layoutParams = lParams
             }
