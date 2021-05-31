@@ -12,11 +12,12 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import java.util.*
 
-private lateinit var payment_date: EditText
-private lateinit var payment_date_layout: TextInputLayout
+
 
 class AddRevision : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
+    private lateinit var payment_date: EditText
+    private lateinit var payment_date_layout: TextInputLayout
     private lateinit var toolbar : androidx.appcompat.widget.Toolbar
     private lateinit var type_of_note: String
     private lateinit var isApprovedLayout: View
@@ -29,7 +30,7 @@ class AddRevision : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
         // toolbar
         toolbar = findViewById(R.id.toolbar)
-        toolbar.title = getString(R.string.title_activity_add_revision)
+        toolbar.title = getString(R.string.add_revision_note)
         setSupportActionBar(toolbar)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back);
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -66,6 +67,5 @@ class AddRevision : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val date = "$dayOfMonth/${month + 1}/$year"
         payment_date.setText(date, TextView.BufferType.EDITABLE)
-
     }
 }

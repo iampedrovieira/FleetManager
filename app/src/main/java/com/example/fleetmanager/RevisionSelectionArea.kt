@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.Toast
 
 class RevisionSelectionArea : AppCompatActivity() {
+    private lateinit var toolbar : androidx.appcompat.widget.Toolbar
     private lateinit var reminder_btn: Button
     private lateinit var note_btn: Button
     private lateinit var dashboard_btn_clicked: String
@@ -25,12 +26,30 @@ class RevisionSelectionArea : AppCompatActivity() {
         when(dashboard_btn_clicked){
             "revision" -> {
                 note_btn.setText(R.string.add_revision_note)
+                //tool bar
+                toolbar = findViewById(R.id.toolbar)
+                toolbar.title = getString(R.string.add_revision)
+                setSupportActionBar(toolbar)
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back);
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
             }
             "insurance" ->{
                 note_btn.setText(R.string.add_insurance_note)
+                //tool bar
+                toolbar = findViewById(R.id.toolbar)
+                toolbar.title = getString(R.string.add_insurance)
+                setSupportActionBar(toolbar)
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back);
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
             }
             "inspection"->{
                 note_btn.setText(R.string.add_inspection_note)
+                //tool bar
+                toolbar = findViewById(R.id.toolbar)
+                toolbar.title = getString(R.string.add_inspection)
+                setSupportActionBar(toolbar)
+                supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back);
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
             }
         }
 

@@ -18,11 +18,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FleetManager">
-        <activity android:name=".AddReminder"></activity>
-        <activity android:name=".RevisionSelectionArea" />
+
+        <activity
+            android:name=".RevisionSelectionArea"
+            android:parentActivityName=".ManagementDashboard"/>
+        <activity
+            android:name=".AddReminder"
+            android:parentActivityName=".RevisionSelectionArea"/>
         <activity
             android:name=".AddRevision"
-            android:parentActivityName=".ManagementDashboard"
             android:windowSoftInputMode="adjustResize" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
