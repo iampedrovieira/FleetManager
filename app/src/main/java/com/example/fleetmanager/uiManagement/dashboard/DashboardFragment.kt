@@ -119,7 +119,7 @@ class DashboardFragment : Fragment() {
                     chart1.data = data
                     chart1.setBackgroundColor(resources.getColor(R.color.white))
                     chart1.animateXY(1000, 1000)
-                    chart1.setDescription(getString(R.string.chart1))
+                    chart1.setDescription(null)
                 }
             }
 
@@ -151,13 +151,14 @@ class DashboardFragment : Fragment() {
                     }
                     val pieDataset = PieDataSet(pieChartEntries, getString(R.string.car))
                     pieDataset.color = Color.rgb(3, 47, 100)
-                    pieDataset.sliceSpace = 2.5f
+                    pieDataset.valueTextColor = Color.WHITE
+                    pieDataset.sliceSpace = 2f
                     val data = PieData(xvalues, pieDataset)
 
                     chart2.data = data
                     chart2.setBackgroundColor(resources.getColor(R.color.white))
                     chart2.animateXY(1500, 1500)
-                    chart2.setDescription(getString(R.string.chart2))
+                    chart2.setDescription(null)
 
                     val legend: Legend = chart2.legend
                     legend.position = Legend.LegendPosition.LEFT_OF_CHART
@@ -206,7 +207,7 @@ class DashboardFragment : Fragment() {
                     chart3.data = data
                     chart3.setBackgroundColor(resources.getColor(R.color.white))
                     chart3.animateXY(1000, 1000)
-                    chart3.setDescription(getString(R.string.chart3))
+                    chart3.setDescription(null)
                 }
             }
 
@@ -230,7 +231,7 @@ class DashboardFragment : Fragment() {
                     Log.d("****DashboardFragment", response.body().toString())
                     chart4Data = response.body()!!
 
-                    chart4.text = chart4Data[0].empregados.toString()
+                    chart4.text = chart4.text as String + chart4Data[0].empregados.toString()
                 }
             }
 
@@ -252,7 +253,7 @@ class DashboardFragment : Fragment() {
                     Log.d("****DashboardFragment", response.body().toString())
                     chart5Data = response.body()!!
 
-                    chart5.text = chart5Data[0].emservico.toString()
+                    chart5.text = chart5.text as String + chart5Data[0].emservico.toString()
                 }
             }
 
