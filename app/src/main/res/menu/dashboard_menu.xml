@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/chat_nav"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_chat"
         android:title="@string/chat"
         app:showAsAction="ifRoom" />
 

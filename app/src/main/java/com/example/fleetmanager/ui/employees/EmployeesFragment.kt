@@ -19,6 +19,7 @@ import com.example.fleetmanager.api.Endpoints
 import com.example.fleetmanager.api.OutputEmployee
 import com.example.fleetmanager.api.OutputVehicle
 import com.example.fleetmanager.api.ServiceBuilder
+import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -91,8 +92,10 @@ class EmployeesFragment : Fragment() {
             )
 
             var company_key = sharedPref.getString(getString(R.string.company), "aaaa")
+            var user_Key = FirebaseAuth.getInstance().currentUser!!.uid
+
             val request = ServiceBuilder.buildService(Endpoints::class.java)
-            val callEmployeePost = request.getEmployees(company_key)
+            val callEmployeePost = request.getChat(user_Key,company_key)
 
             callEmployeePost.enqueue(object: Callback<List<OutputEmployee>> {
                 override fun onResponse(

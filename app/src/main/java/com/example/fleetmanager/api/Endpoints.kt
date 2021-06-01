@@ -31,6 +31,11 @@ interface Endpoints {
     @POST("external/vehicle-by-plate")
     fun getVehicleDetails(@Field("plate") plate: String?): Call<TruksDetailsPlate>
 
+
+    @FormUrlEncoded
+    @POST("employee/chat")
+    fun getChat(@Field("userKey") user_key: String?,@Field("companyKey") company_key: String?): Call<List<OutputEmployee>>
+
     /*@POST("users/login")
     fun login(@Body firebaseKey: String): Call<OutputLogin>*/
 }
