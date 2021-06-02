@@ -13,6 +13,7 @@ import com.example.fleetmanager.uiEmployee.profile.ProfileEmployeeFragment
 import com.example.fleetmanager.uiEmployee.trips.TripsEmployeeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.fleetmanager.ui.employees.EmployeesFragment
 
 class MainActivityEmployee : AppCompatActivity() {
     private lateinit var bottomNavigationView : BottomNavigationView
@@ -31,6 +32,7 @@ class MainActivityEmployee : AppCompatActivity() {
         val dashboardFragment = DashboardEmployeeFragment()
         val profileFragment = ProfileEmployeeFragment()
         val tripsFragment = TripsEmployeeFragment()
+
         bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationViewEmployee)
         bottomNavigationView.background = null
         setCurrentFragment(dashboardFragment)
@@ -102,4 +104,14 @@ class MainActivityEmployee : AppCompatActivity() {
         }
         Log.d("playButtonStatus", "Saída: " + isPlay.toString())
     }
+
+    fun replaceFragmentChat(){
+        var bundle = Bundle()
+        val chat_fragment = EmployeesFragment()
+        bundle.putBoolean("admin",false)
+        chat_fragment.arguments = bundle
+        setCurrentFragment(chat_fragment)
+        Log.i("aa", "Home Selected")
+    }
+
 }

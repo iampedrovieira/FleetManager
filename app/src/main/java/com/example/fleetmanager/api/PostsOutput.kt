@@ -27,7 +27,7 @@ data class OutputVehicle(
 data class OutputEmployee(
     val employee_key: String,
     val employee_name: String,
-    val phone_number: Int,
+    val phone_number: String,
     val employee_address: String,
     val picture: String,
     val company_key: String,

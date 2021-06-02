@@ -9,5 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primaryBlue">#032F64</color>
     <color name="primaryGrey">#939191</color>
+    <color name="chatGrey">#e8eae6</color>
     <color name="statusGreen">#148C36</color>
 </resources>
