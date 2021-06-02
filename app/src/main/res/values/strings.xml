@@ -6,7 +6,7 @@
     <string name="title_employees">Employees</string>
     <string name="title_profile">Profile</string>
     <string name="title_trips">Trips</string>
-    <string name="title_management_dashboard">Management Dashboard</string>
+    <string name="title_management_menu">Management Menu</string>
     <string name="add_vehicle">Add Vehicle</string>
     <string name="add_employee">Add Employee</string>
     <string name="add_inspection">Add Inspection</string>
@@ -77,5 +77,13 @@
 
     <string name="total_online_drivers">Total Online Drivers : </string>
 
+    <!-- Charts -->
+    <string name="chart1">Cost per month:</string>
+    <string name="chart2">Top spending cars:</string>
+    <string name="chart3">Trips per month:</string>
+    <string name="chart4">Employees: \n</string>
+    <string name="chart5">Active: \n</string>
+    <string name="month">Month</string>
+    <string name="car">Car</string>
 
 </resources>

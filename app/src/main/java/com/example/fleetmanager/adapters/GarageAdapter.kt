@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fleetmanager.R
 import com.example.fleetmanager.api.OutputVehicle
-import com.example.fleetmanager.ui.garage.GarageFragment
+import com.example.fleetmanager.uiManagement.garage.GarageFragment
 
 class GarageAdapter(val context: Context, val fragment: Fragment): RecyclerView.Adapter<GarageAdapter.GarageViewHolder>() {
 

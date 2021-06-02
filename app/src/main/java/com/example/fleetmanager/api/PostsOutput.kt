@@ -22,7 +22,7 @@ data class OutputVehicle(
     val vehicle_type: String,
     val company_key: String,
     val fuel_type: String
-    )
+)
 
 data class OutputEmployee(
     val employee_key: String,
@@ -40,4 +40,27 @@ data class OutputTrip(
     val date: Date,
     val license_plate: String,
     val employee_key: String
+)
+
+data class Chart1(
+    var mes: String,
+    val gastos: String,
+)
+
+data class Chart2(
+    val license_plate: String,
+    val costs: String,
+)
+
+data class Chart3(
+    var mes: String,
+    val trips: Int,
+)
+
+data class Chart4(
+    val empregados: Int,
+)
+
+data class Chart5(
+    val emservico: Int,
 )

@@ -1,4 +1,4 @@
-package com.example.fleetmanager.ui.employees
+package com.example.fleetmanager.uiManagement.employees
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -17,7 +17,6 @@ import com.example.fleetmanager.R
 import com.example.fleetmanager.adapters.EmployeesAdapter
 import com.example.fleetmanager.api.Endpoints
 import com.example.fleetmanager.api.OutputEmployee
-import com.example.fleetmanager.api.OutputVehicle
 import com.example.fleetmanager.api.ServiceBuilder
 import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call

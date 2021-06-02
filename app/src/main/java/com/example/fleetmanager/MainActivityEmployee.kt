@@ -11,9 +11,10 @@ import com.example.fleetmanager.uiEmployee.dashboard.DashboardEmployeeFragment
 import com.example.fleetmanager.uiEmployee.garage.GarageEmployeeFragment
 import com.example.fleetmanager.uiEmployee.profile.ProfileEmployeeFragment
 import com.example.fleetmanager.uiEmployee.trips.TripsEmployeeFragment
+import com.example.fleetmanager.uiManagement.employees.EmployeesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.example.fleetmanager.ui.employees.EmployeesFragment
+//import com.example.fleetmanager.uiEmployee.dashboard.
 
 class MainActivityEmployee : AppCompatActivity() {
     private lateinit var bottomNavigationView : BottomNavigationView

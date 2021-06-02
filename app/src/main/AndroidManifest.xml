@@ -44,30 +44,35 @@
 
             <intent-filter>
                 <action android:name="ChatActivity" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".ManagementDashboard"
-            android:parentActivityName=".MainActivity">
-            >
-        </activity>
+            android:name=".ManagementMenu"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity" />
+
         <activity android:name=".VehicleDescription" />
+
         <activity
             android:name=".VehicleRegistration"
-            android:parentActivityName=".ManagementDashboard" />
+            android:parentActivityName=".ManagementMenu" />
+
         <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
         <activity android:name=".MainActivityEmployee" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
         <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"
