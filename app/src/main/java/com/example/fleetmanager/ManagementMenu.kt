@@ -33,18 +33,18 @@ class ManagementMenu : AppCompatActivity() {
 
     fun addEmployee(view: View) {}
     fun addInspection(view: View) {
-        val i = Intent(this@ManagementDashboard, RevisionSelectionArea::class.java)
+        val i = Intent(this@ManagementMenu, RevisionSelectionArea::class.java)
         i.putExtra(DASHBOARD_TYPE, "inspection")
         startActivity(i)
     }
     fun addInsurance(view: View) {
-        val i = Intent(this@ManagementDashboard, RevisionSelectionArea::class.java)
+        val i = Intent(this@ManagementMenu, RevisionSelectionArea::class.java)
         i.putExtra(DASHBOARD_TYPE, "insurance")
         startActivity(i)
     }
     fun manageVehicles(view: View) {}
     fun addRevision(view: View) {
-        val i = Intent(this@ManagementDashboard, RevisionSelectionArea::class.java)
+        val i = Intent(this@ManagementMenu, RevisionSelectionArea::class.java)
         i.putExtra(DASHBOARD_TYPE, "revision")
         startActivity(i)
     }
