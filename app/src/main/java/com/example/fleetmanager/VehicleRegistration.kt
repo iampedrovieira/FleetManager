@@ -1,10 +1,16 @@
 package com.example.fleetmanager
 
+import android.Manifest
 import android.app.DatePickerDialog
+import android.content.ContentValues
+import android.content.DialogInterface
 import android.content.Intent
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.CalendarContract
 import android.provider.MediaStore
 import android.util.Log
 import android.view.ContextThemeWrapper
@@ -13,42 +19,48 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.fleetmanager.api.Endpoints
 import com.example.fleetmanager.api.ServiceBuilder
 import com.example.fleetmanager.entities.TruksDetailsPlate
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
+import kotlinx.android.synthetic.main.activity_management_dashboard.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-private lateinit var vehicle_name : TextView
-private lateinit var vin : TextView
-private lateinit var brand_input : EditText
-private lateinit var model_input : EditText
-private lateinit var plate_input : EditText
-private lateinit var plate_date_input : TextView
-private lateinit var avg_input : EditText
-private lateinit var km_input : EditText
-private lateinit var last_revision_input : TextView
-private lateinit var revision_value_input : EditText
-private lateinit var last_revision_km_input : EditText
-private lateinit var insurance_date_input : TextView
-private lateinit var insurance_value_input : EditText
-private lateinit var add_vehicle : Button
-private lateinit var scan_plate : ImageButton
-private lateinit var motorcycle : Button
-private lateinit var car : Button
-private lateinit var truck : Button
-private lateinit var bike : Button
+private lateinit var vehicle_name: TextView
+private lateinit var vin: TextView
+private lateinit var brand_input: EditText
+private lateinit var model_input: EditText
+private lateinit var plate_input: EditText
+private lateinit var plate_date_input: TextView
+private lateinit var avg_input: EditText
+private lateinit var km_input: EditText
+private lateinit var last_revision_input: TextView
+private lateinit var revision_value_input: EditText
+private lateinit var last_revision_km_input: EditText
+private lateinit var insurance_date_input: TextView
+private lateinit var insurance_value_input: EditText
+private lateinit var add_vehicle: Button
+private lateinit var scan_plate: ImageButton
+private lateinit var motorcycle: Button
+private lateinit var car: Button
+private lateinit var truck: Button
+private lateinit var bike: Button
 
 //image to auto complite
 val REQUEST_IMAGE_CAPTURE = 1
-val CAMERA_ACTION_PICK_REQUEST_CODE = 1;
+val CAMERA_ACTION_PICK_REQUEST_CODE = 1
+val REQUEST_CODE_ASK_PERMISSIONS = 123
 private val LOCATION_PERMISSION_REQUEST_CODE = 1
-private lateinit var  imageBitmap_autocomplite: Bitmap
+private lateinit var imageBitmap_autocomplite: Bitmap
 private var motorcycleButton: Boolean = false
 private var carButton: Boolean = false
 private var truckButton: Boolean = false
@@ -57,12 +69,22 @@ private var bikeButton: Boolean = false
 private var datePickerA: Boolean = false
 private var datePickerB: Boolean = false
 private var datePickerC: Boolean = false
+private val callbackId: Int = 42
 
 class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
+
+    private lateinit var toolbar: androidx.appcompat.widget.Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_vehicle_registration)
+
+        toolbar = findViewById(R.id.toolbar)
+        toolbar.title = getString(R.string.add_vehicle)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back);
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         vehicle_name = findViewById(R.id.vehicle_name)
         vin = findViewById(R.id.vehicle_vin)
@@ -83,8 +105,7 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         car = findViewById(R.id.car)
         truck = findViewById(R.id.truck)
         bike = findViewById(R.id.bike)
-
-
+        
         plate_input.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                 var plate = plate_input.text
@@ -94,23 +115,97 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
             false
         })
 
-
+        add_vehicle.setOnClickListener {
+            insertVehicle()
+        }
     }
 
+    fun addVehicle() {
 
-    fun autoCompliteHandler(view: View){
+        val startMillisRevision: Long = Calendar.getInstance().run {
+            val date: String = insurance_date_input.text.toString()
+            var dateParts: Array<String> = date.split("/").toTypedArray()
+            val day = dateParts[0].toInt()
+            val month = dateParts[1].toInt() - 1
+            val year = dateParts[2].toInt()
+            Log.d("datas", "${day}/${month}/${year}")
+            set(year, month, day)
+            timeInMillis
+        }
+
+        val startMillisInsurance: Long = Calendar.getInstance().run {
+            val date: String = insurance_date_input.text.toString()
+            var dateParts: Array<String> = date.split("/").toTypedArray()
+            val day = dateParts[0].toInt()
+            val month = dateParts[1].toInt() - 1
+            val year = dateParts[2].toInt()
+            Log.d("datas", "${day}/${month}/${year}")
+            set(year, month, day)
+            timeInMillis
+        }
+
+        val calID: Long = 3
+
+        val valuesRevision = ContentValues().apply {
+            put(CalendarContract.Events.DTSTART, startMillisRevision)
+            put(CalendarContract.Events.DTEND, startMillisRevision)
+            put(CalendarContract.Events.TITLE, plate_input.text.toString())
+            put(CalendarContract.Events.DESCRIPTION, brand_input.text.toString())
+            put(CalendarContract.Events.CALENDAR_ID, calID)
+            put(CalendarContract.Events.EVENT_TIMEZONE, "Portugal/Lisbon")
+        }
+
+        val valuesInsurance = ContentValues().apply {
+            put(CalendarContract.Events.DTSTART, startMillisInsurance)
+            put(CalendarContract.Events.DTEND, startMillisInsurance)
+            put(CalendarContract.Events.TITLE, plate_input.text.toString())
+            put(CalendarContract.Events.DESCRIPTION, brand_input.text.toString())
+            put(CalendarContract.Events.CALENDAR_ID, calID)
+            put(CalendarContract.Events.EVENT_TIMEZONE, "Portugal/Lisbon")
+        }
+
+        contentResolver.insert(CalendarContract.Events.CONTENT_URI, valuesRevision)!!
+        contentResolver.insert(CalendarContract.Events.CONTENT_URI, valuesInsurance)!!
+    }
+
+    private fun insertVehicle() {
+        val hasWriteContactsPermission = checkSelfPermission(Manifest.permission.WRITE_CALENDAR)
+        if (hasWriteContactsPermission != PERMISSION_GRANTED) {
+            if (!shouldShowRequestPermissionRationale(Manifest.permission.WRITE_CALENDAR)) {
+                showMessageOKCancel("You need to allow access to Contacts"
+                ) { dialog, which ->
+                    requestPermissions(arrayOf(Manifest.permission.WRITE_CALENDAR),
+                        REQUEST_CODE_ASK_PERMISSIONS)
+                }
+                return
+            }
+            requestPermissions(arrayOf(Manifest.permission.WRITE_CALENDAR),
+                REQUEST_CODE_ASK_PERMISSIONS)
+            return
+        }
+        addVehicle()
+    }
+
+    private fun showMessageOKCancel(message: String, okListener: DialogInterface.OnClickListener) {
+        AlertDialog.Builder(this)
+            .setMessage(message)
+            .setPositiveButton("OK", okListener)
+            .setNegativeButton("Cancel", null)
+            .create()
+            .show()
+    }
+
+    fun autoCompliteHandler(view: View) {
         openCamera();
     }
 
-
-    private fun openCamera(){
+    private fun openCamera() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             takePictureIntent.resolveActivity(packageManager)?.also {
                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
             }
         }
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -143,7 +238,6 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
                     // Send Toast saying try again
                     // ...
                 }
-
         }
     }
 
@@ -187,11 +281,8 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         })
     }
 
-
-
-
     fun vehicleTypeClick(view: View) {
-        when (view?.id){
+        when (view?.id) {
             (R.id.motorcycle) -> {
                 if (!motorcycleButton) {
                     motorcycle.setCompoundDrawableTintList(ColorStateList.valueOf(resources.getColor(
@@ -257,14 +348,11 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
                     bikeButton = false
                 }
             }
-
         }
-
-
     }
 
     fun openDatePicker(view: View) {
-        when(view.id){
+        when (view.id) {
             (R.id.plate_date_input) -> {
                 datePickerA = true
                 datePickerB = false
@@ -283,10 +371,7 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         }
 
         showDatePickerDialog();
-
     }
-
-
 
     fun showDatePickerDialog() {
         val datePickerDialog = DatePickerDialog(
@@ -300,13 +385,12 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
         val date = "$dayOfMonth/${month + 1}/$year"
-        if(datePickerA){
+        if (datePickerA) {
             plate_date_input.text = date
-        }else if(datePickerB){
+        } else if (datePickerB) {
             last_revision_input.text = date
-        }else if(datePickerC){
+        } else if (datePickerC) {
             insurance_date_input.text = date
         }
-
     }
 }

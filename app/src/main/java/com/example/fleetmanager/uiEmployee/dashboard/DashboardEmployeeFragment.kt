@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.fleetmanager.MainActivity
 import com.example.fleetmanager.MainActivityEmployee
 import com.example.fleetmanager.R
@@ -80,6 +81,8 @@ class DashboardEmployeeFragment : Fragment(), OnMapReadyCallback {
             }
         }
         createLocationRequest()
+
+
 
         return root
     }

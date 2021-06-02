@@ -8,6 +8,8 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
 
     <application
         android:allowBackup="true"
@@ -16,6 +18,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FleetManager">
+
+        <activity
+            android:name=".RevisionSelectionArea"
+            android:parentActivityName=".ManagementDashboard"/>
+        <activity
+            android:name=".AddReminder"
+            android:parentActivityName=".RevisionSelectionArea"/>
+        <activity
+            android:name=".AddRevision"
+            android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".ChatActivity">
             <meta-data

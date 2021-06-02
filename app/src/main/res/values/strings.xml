@@ -2,6 +2,7 @@
     <string name="app_name">FleetManager</string>
     <string name="title_activity">MainActivity</string>
     <string name="title_garage">Garage</string>
+    <string name="title_activity_add_revision">Add Revision</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_employees">Employees</string>
     <string name="title_profile">Profile</string>
@@ -10,6 +11,7 @@
     <string name="add_vehicle">Add Vehicle</string>
     <string name="add_employee">Add Employee</string>
     <string name="add_inspection">Add Inspection</string>
+    <string name="add_reminder">Add Reminder</string>
     <string name="add_insurance">Add Insurance</string>
     <string name="manage_vehicles">Manage Vehicles</string>
     <string name="add_revision">Add Revision</string>
@@ -18,6 +20,16 @@
     <string name="origin_hint">Type your city of origin</string>
     <string name="destination_hint">Type your destination city</string>
     <string name="chat">Chat</string>
+    <string name="create_reminder">Create Reminder</string>
+    <string name="location">Location</string>
+    <string name="employee_email">Employee E-mail</string>
+    <string name="date">Date</string>
+    <string name="reminder_title">Title</string>
+
+    <!--Dashboard-->
+    <string name="add_revision_note">Add Revision Note</string>
+    <string name="add_inspection_note">Add Inspection Note</string>
+    <string name="add_insurance_note">Add Insurance Note</string>
 
     <!-- Shared Preferences -->
     <string name="preference_file_key">cn-sp</string>
@@ -64,9 +76,14 @@
     <string name="vehicle_brand_name">Vehicle Brand</string>
     <string name="btn_add">Add</string>
 
-    <!--Alert Dialog-->
+    <!-- Alert Dialog -->
     <string name="confirm">Confirm</string>
     <string name="reply">Reply</string>
+    <!--
+    This string is used for square devices and overridden by hello_world in
+    values-round/strings.xml for round devices.
+    -->
+    <string name="hello_world">Hello Square World!</string>
 
     <!-- Charts -->
     <string name="chart1">Cost per month:</string>
@@ -76,5 +93,11 @@
     <string name="chart5">Active: \n</string>
     <string name="month">Month</string>
     <string name="car">Car</string>
+    <!-- Revisions -->
+    <string name="company_name">Company</string>
+    <string name="revision_price">Price €</string>
+    <string name="payment_date">Payment Date</string>
+    <string name="other_information">Other Information:</string>
+    <string name="additional_info">Additional Info</string>
 
 </resources>
