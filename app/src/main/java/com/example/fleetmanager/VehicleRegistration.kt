@@ -1,7 +1,9 @@
 package com.example.fleetmanager
 
+import android.Manifest
 import android.app.DatePickerDialog
 import android.content.ContentValues
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.content.res.ColorStateList
@@ -9,6 +11,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.provider.MediaStore
+import android.util.Log
 import android.view.ContextThemeWrapper
 import android.view.KeyEvent
 import android.view.View
@@ -16,20 +19,17 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.content.ContextCompat
 import com.example.fleetmanager.api.Endpoints
 import com.example.fleetmanager.api.ServiceBuilder
 import com.example.fleetmanager.entities.TruksDetailsPlate
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
+import kotlinx.android.synthetic.main.activity_management_dashboard.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
-import java.util.jar.Manifest
 
 
 private lateinit var vehicle_name: TextView
@@ -54,7 +54,8 @@ private lateinit var bike: Button
 
 //image to auto complite
 val REQUEST_IMAGE_CAPTURE = 1
-val CAMERA_ACTION_PICK_REQUEST_CODE = 1;
+val CAMERA_ACTION_PICK_REQUEST_CODE = 1
+val REQUEST_CODE_ASK_PERMISSIONS = 123
 private val LOCATION_PERMISSION_REQUEST_CODE = 1
 private lateinit var imageBitmap_autocomplite: Bitmap
 private var motorcycleButton: Boolean = false
@@ -113,15 +114,19 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         })
 
         add_vehicle.setOnClickListener {
+            insertVehicle()
+        }
+    }
 
-            checkPermissions(callbackId, android.Manifest.permission.READ_CALENDAR, android.Manifest.permission.WRITE_CALENDAR)
-            val startMillisRevision: Long = Calendar.getInstance().run {
+    fun addVehicle(){
+        val startMillisRevision: Long = Calendar.getInstance().run {
 
                 val date: String = insurance_date_input.text.toString()
                 var dateParts: Array<String> = date.split("/").toTypedArray()
                 val day = dateParts[0].toInt()
                 val month = dateParts[1].toInt() - 1
                 val year = dateParts[2].toInt()
+                Log.d("datas", "${day}/${month}/${year}")
                 set(year, month, day)
                 timeInMillis
             }
@@ -146,6 +151,7 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
                 val day = dateParts[0].toInt()
                 val month = dateParts[1].toInt() - 1
                 val year = dateParts[2].toInt()
+                Log.d("datas", "${day}/${month}/${year}")
                 set(year, month, day)
                 timeInMillis
             }
@@ -156,6 +162,7 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
                 val day = dateParts[0].toInt()
                 val month = dateParts[1].toInt() - 1
                 val year = dateParts[2].toInt()
+                Log.d("datas", "${day}/${month}/${year}")
                 set(year, month, day)
                 timeInMillis
 
@@ -182,6 +189,7 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
                 val day = dateParts[0].toInt()
                 val month = dateParts[1].toInt() - 1
                 val year = dateParts[2].toInt()
+                Log.d("datas", "${day}/${month}/${year}")
                 set(year, month, day)
                 timeInMillis
             }
@@ -205,38 +213,44 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
                 put(CalendarContract.Events.CALENDAR_ID, calID)
                 put(CalendarContract.Events.EVENT_TIMEZONE, "Portugal/Lisbon")
             }
+            Log.d("datas", "${valuesRevision}")
+            Log.d("datas", "${valuesInsurance}")
 
             val uri = CalendarContract.Events.CONTENT_URI
             contentResolver.insert(uri, valuesRevision)
             contentResolver.insert(uri, valuesInsurance)
-
-        }
-
-
     }
 
-
-    fun checkPermissions(callbackId: Int, permissionRead: String, permissionWrite: String) {
-        var permissions = true
-        for (p in permissionRead) {
-            permissions = permissions && ContextCompat.checkSelfPermission(this,
-                p!!.toString()) == PERMISSION_GRANTED
+    private fun insertVehicle() {
+        val hasWriteContactsPermission = checkSelfPermission(Manifest.permission.WRITE_CALENDAR)
+        if (hasWriteContactsPermission != PERMISSION_GRANTED) {
+            if (!shouldShowRequestPermissionRationale(Manifest.permission.WRITE_CALENDAR)) {
+                showMessageOKCancel("You need to allow access to Contacts"
+                ) { dialog, which ->
+                    requestPermissions(arrayOf(Manifest.permission.WRITE_CALENDAR),
+                        REQUEST_CODE_ASK_PERMISSIONS)
+                }
+                return
+            }
+            requestPermissions(arrayOf(Manifest.permission.WRITE_CALENDAR),
+                REQUEST_CODE_ASK_PERMISSIONS)
+            return
         }
-        for (p in permissionWrite) {
-            permissions = permissions && ContextCompat.checkSelfPermission(this,
-                p!!.toString()) == PERMISSION_GRANTED
-        }
-        if (!permissions) {
-            ActivityCompat.requestPermissions(this, arrayOf(permissionRead), callbackId)
-            ActivityCompat.requestPermissions(this, arrayOf(permissionRead), callbackId)
-        }
+        addVehicle()
     }
 
+    private fun showMessageOKCancel(message: String, okListener: DialogInterface.OnClickListener) {
+        AlertDialog.Builder(this)
+            .setMessage(message)
+            .setPositiveButton("OK", okListener)
+            .setNegativeButton("Cancel", null)
+            .create()
+            .show()
+    }
 
     fun autoCompliteHandler(view: View) {
         openCamera();
     }
-
 
     private fun openCamera() {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
@@ -245,7 +259,6 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
             }
         }
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
