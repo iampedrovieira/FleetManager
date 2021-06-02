@@ -83,7 +83,7 @@ class GarageFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId){
-            R.id.garage_map_icon_test -> {
+            R.id.garage_map_icon -> {
                 Log.d("aa", "botao track todos veiculos")
                 val intent = Intent(activity, MapsTracksActivityAll::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME

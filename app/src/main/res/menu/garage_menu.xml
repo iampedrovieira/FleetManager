@@ -3,11 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/garage_map_icon_test"
-        android:icon="@drawable/ic_map_garage"
-        android:title="Track Garage"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/garage_map_icon"
         android:icon="@drawable/ic_map_garage"
         android:title="Track Garage"

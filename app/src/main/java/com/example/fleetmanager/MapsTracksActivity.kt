@@ -49,6 +49,7 @@ class MapsTracksActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var firebaseHelper : FirebaseHelper
     private val markerAnimationHelper = MarkerAnimationHelper()
     private val uiHelper = UiHelper()
+    private var key: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +63,7 @@ class MapsTracksActivity : AppCompatActivity(), OnMapReadyCallback {
                 getString(R.string.preference_file_key),
                 Context.MODE_PRIVATE
             )
-        var key = sharedPref.getString(getString(R.string.uid),"0000")
+         key = sharedPref.getString(getString(R.string.uid),"0000")
         //Log.d("aa", key.toString())
 
         firebaseHelper = FirebaseHelper(key!!)
@@ -132,7 +133,7 @@ class MapsTracksActivity : AppCompatActivity(), OnMapReadyCallback {
                     locationFlag = false
                     animateCamera(latLng)
                 }
-                if (driverOnlineFlag) firebaseHelper.updateDriver(Driver(lat = latLng.latitude, lng = latLng.longitude))
+                if (driverOnlineFlag) firebaseHelper.updateDriver(Driver(lat = latLng.latitude, lng = latLng.longitude, driverId = key.toString()))
                 showOrAnimateMarker(latLng)
             }
         }

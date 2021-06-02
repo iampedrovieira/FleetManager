@@ -36,10 +36,6 @@ class GarageEmployeeFragment : Fragment() {
 
         toolbar = root.findViewById(R.id.toolbar)
         toolbar.title = getString(R.string.title_garage)
-        toolbar.inflateMenu(R.menu.garage_menu)
-        toolbar.setOnMenuItemClickListener {
-            onOptionsItemSelected(it)
-        }
 
         // Recycler View
         val truck_recycler = root.findViewById<RecyclerView>(R.id.truck_recycler)
@@ -77,16 +73,4 @@ class GarageEmployeeFragment : Fragment() {
         return root
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId){
-            R.id.garage_map_icon -> {
-                Log.d("aa", "botao track veiculo")
-                val intent = Intent(activity, MapsTracksActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
-                startActivity(intent)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 }
