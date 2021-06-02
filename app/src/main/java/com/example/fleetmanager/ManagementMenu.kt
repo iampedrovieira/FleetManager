@@ -9,7 +9,7 @@ import android.view.WindowManager
 class ManagementMenu : AppCompatActivity() {
 
 
-    private lateinit var toolbar : androidx.appcompat.widget.Toolbar
+    private lateinit var toolbar: androidx.appcompat.widget.Toolbar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,10 +27,11 @@ class ManagementMenu : AppCompatActivity() {
     }
 
     fun addVehicle(view: View) {
-        val i = Intent(this@ManagementDashboard, VehicleRegistration::class.java)
+        val i = Intent(this@ManagementMenu, VehicleRegistration::class.java)
         startActivity(i)
         finish()
     }
+
     fun addEmployee(view: View) {}
     fun addInspection(view: View) {}
     fun addInsurance(view: View) {}

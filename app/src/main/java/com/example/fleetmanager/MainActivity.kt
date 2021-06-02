@@ -15,7 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var bottomNavigationView : BottomNavigationView
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_employees -> {
                     var bundle = Bundle()
-                    bundle.putBoolean("admin",true)
+                    bundle.putBoolean("admin", true)
                     employeesFragment.arguments = bundle
                     setCurrentFragment(employeesFragment)
                     Log.i(TAG, "employees Selected")
@@ -61,11 +61,7 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-
-
     }
-
 
     private fun badgeClear(id: Int) {
         val badgeDrawable = bottomNavigationView.getBadge(id)

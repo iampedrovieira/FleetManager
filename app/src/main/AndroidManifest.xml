@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FleetManager">
-        <activity android:name=".uiEmployee.chat.chat_employee"></activity>
+
         <activity android:name=".ChatActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -24,34 +24,24 @@
 
             <intent-filter>
                 <action android:name="ChatActivity" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
-             Note that the API key is linked to the encryption key used to sign the APK.
-             You need a different API key for each encryption key, including the release key that is used to
-             sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/.
-        -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".ManagementDashboard"
-            android:parentActivityName=".MainActivity">
-            >
-        </activity>
+            android:name=".ManagementMenu"
+            android:parentActivityName=".MainActivity"/>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity" />
+
         <activity android:name=".VehicleDescription" />
+
         <activity
             android:name=".VehicleRegistration"
-            android:parentActivityName=".ManagementDashboard" />
+            android:parentActivityName=".ManagementMenu" />
+
         <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,10 +52,14 @@
         <activity android:name=".MainActivityEmployee" />
 
         <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <meta-data
             android:name="com.google.mlkit.vision.DEPENDENCIES"
             android:value="ocr" />
-            android:name=".ManagementMenu"
-            android:parentActivityName=".MainActivity" />
+<!--            android:name=".ManagementMenu"-->
+<!--            android:parentActivityName=".MainActivity" />-->
     </application>
 
 </manifest>
