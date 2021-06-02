@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 
-class ManagementDashboard : AppCompatActivity() {
+class ManagementMenu : AppCompatActivity() {
 
 
     private lateinit var toolbar : androidx.appcompat.widget.Toolbar
@@ -17,7 +17,7 @@ class ManagementDashboard : AppCompatActivity() {
         setContentView(R.layout.activity_management_dashboard)
 
         toolbar = findViewById(R.id.toolbar)
-        toolbar.title = getString(R.string.title_management_dashboard)
+        toolbar.title = getString(R.string.title_management_menu)
         setSupportActionBar(toolbar)
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back);
 

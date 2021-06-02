@@ -6,10 +6,10 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.fleetmanager.ui.dashboard.DashboardFragment
-import com.example.fleetmanager.ui.employees.EmployeesFragment
-import com.example.fleetmanager.ui.garage.GarageFragment
-import com.example.fleetmanager.ui.profile.ProfileFragment
+import com.example.fleetmanager.uiManagement.dashboard.DashboardFragment
+import com.example.fleetmanager.uiManagement.employees.EmployeesFragment
+import com.example.fleetmanager.uiManagement.garage.GarageFragment
+import com.example.fleetmanager.uiManagement.profile.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -82,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     fun openManagementDashboard(view: View) {
-        val intent = Intent(this, ManagementDashboard::class.java)
+        val intent = Intent(this, ManagementMenu::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
         startActivity(intent)
     }

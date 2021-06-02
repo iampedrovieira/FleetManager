@@ -90,4 +90,7 @@ dependencies {
  
     implementation 'com.google.firebase:firebase-messaging-ktx'
 
+    // Charts
+    //implementation 'com.github.AAChartModel:AAChartCore-Kotlin:-SNAPSHOT'
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 }

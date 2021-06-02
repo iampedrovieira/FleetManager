@@ -15,9 +15,10 @@ import com.example.fleetmanager.ChatActivity
 import com.example.fleetmanager.MainActivityEmployee
 import com.example.fleetmanager.R
 import com.example.fleetmanager.api.OutputEmployee
-import com.example.fleetmanager.ui.employees.EmployeesFragment
+// import com.example.fleetmanager.ui.employees.EmployeesFragment
 import com.example.fleetmanager.util.AppConstants
 import kotlin.coroutines.coroutineContext
+import com.example.fleetmanager.uiManagement.employees.EmployeesFragment
 
 class EmployeesAdapter(val context: Context, val fragment: EmployeesFragment): RecyclerView.Adapter<EmployeesAdapter.EmployeesViewHolder>() {
 

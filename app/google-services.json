@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "261858540886",
+    "firebase_url": "https://fleetmanagement-4bf81-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "fleetmanagement-4bf81",
     "storage_bucket": "fleetmanagement-4bf81.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "261858540886-kruh2p5qvmm1q9tdhft4db4iujavm5qd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fleetmanager",
+            "certificate_hash": "f5f8bbc768e64b45c9689dfdc06fceba7db619d8"
+          }
+        },
         {
           "client_id": "261858540886-4uhf871n2d1s5u8409906ck9q9nqnsh6.apps.googleusercontent.com",
           "client_type": 3

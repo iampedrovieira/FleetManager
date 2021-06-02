@@ -7,24 +7,24 @@
 
     <fragment
         android:id="@+id/navigation_garage"
-        android:name="com.example.fleetmanager.ui.garage.GarageFragment"
+        android:name="com.example.fleetmanager.uiManagement.garage.GarageFragment"
         android:label="@string/title_garage"
         tools:layout="@layout/fragment_garage" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.fleetmanager.ui.dashboard.DashboardFragment"
+        android:name="com.example.fleetmanager.uiManagement.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_employees"
-        android:name="com.example.fleetmanager.ui.employees.EmployeesFragment"
+        android:name="com.example.fleetmanager.uiManagement.employees.EmployeesFragment"
         android:label="@string/title_employees"
         tools:layout="@layout/fragment_employees" />
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.fleetmanager.ui.profile.ProfileFragment"
+        android:name="com.example.fleetmanager.uiManagement.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 

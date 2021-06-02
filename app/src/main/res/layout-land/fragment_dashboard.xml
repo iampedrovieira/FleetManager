@@ -13,18 +13,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- <fragment
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
-        tools:context=".ui.dashboard.MapsFragment"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
-
-    <LinearLayout -->
-    
     <Button
         android:id="@+id/chart_4"
         android:layout_width="150dp"
@@ -68,7 +56,7 @@
         android:text="@string/chart5"
         android:textColor="#000"
         android:visibility="invisible"
-        app:cornerRadius="16dp"
+        app:cornerRadius="15dp"
         app:layout_constraintStart_toEndOf="@+id/chart_4"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
@@ -87,18 +75,6 @@
         app:layout_constraintTop_toBottomOf="@+id/chart_5" />
 
 
-    <TextView
-        android:id="@+id/chart1Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/chart1"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintTop_toBottomOf="@+id/separator"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart_1"
         android:layout_width="match_parent"
@@ -109,7 +85,7 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chart1Title" />
+        app:layout_constraintTop_toBottomOf="@+id/separator" />
 
     <ProgressBar
         android:id="@+id/chart1Progress"
@@ -121,55 +97,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/chart_1" />
-        
-        <!-- android:orientation="vertical"
-        android:padding="15dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/map"> -->
-
-        <!-- <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/destination_title"/>
-        <EditText
-            android:id="@+id/destination_input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/destination_hint"/>
-
-        <Button
-            android:id="@+id/teste"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Teste"/>
-    </LinearLayout> -->
-
-        
-
-    <TextView
-        android:id="@+id/chart2Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/chart2"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintTop_toBottomOf="@+id/chart_1"
-        app:layout_constraintLeft_toLeftOf="parent"/>
 
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/chart_2"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chart2Title" />
+        app:layout_constraintTop_toBottomOf="@+id/chart_1" />
 
     <ProgressBar
         android:id="@+id/chart2Progress"
@@ -183,29 +122,17 @@
         app:layout_constraintTop_toTopOf="@+id/chart_2" />
 
 
-    <TextView
-        android:id="@+id/chart3Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/chart3"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:layout_marginTop="32dp"
-        android:layout_marginStart="32dp"
-        app:layout_constraintTop_toBottomOf="@+id/chart_2"
-        app:layout_constraintLeft_toLeftOf="parent"/>
-
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/chart_3"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chart3Title" />
+        app:layout_constraintTop_toBottomOf="@+id/chart_2" />
 
     <ProgressBar
         android:id="@+id/chart3Progress"
