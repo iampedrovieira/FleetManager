@@ -29,7 +29,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_login.*
 
-class MapsTracksActivity : AppCompatActivity(), OnMapReadyCallback {
+class MapsTracksActivity : AppCompatActivity() {
 
     private lateinit var mMap: GoogleMap
 
@@ -56,7 +56,6 @@ class MapsTracksActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_maps_tracks)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager.findFragmentById(R.id.mapTracksAll) as SupportMapFragment
-        mapFragment.getMapAsync(this)
 
         val sharedPref: SharedPreferences =
             getSharedPreferences(
@@ -97,15 +96,6 @@ class MapsTracksActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
 
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 
     @SuppressLint("MissingPermission")

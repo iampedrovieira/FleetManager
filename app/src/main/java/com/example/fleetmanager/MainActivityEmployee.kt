@@ -91,9 +91,12 @@ class MainActivityEmployee : AppCompatActivity() {
         if(isPlay){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 playStopTrip.setImageDrawable(resources.getDrawable(R.drawable.ic_stop, theme))
+
             } else {
                 playStopTrip.setImageDrawable(resources.getDrawable(R.drawable.ic_stop))
             }
+            val i = Intent(this, StartTripActivity::class.java)
+            startActivity(i)
             isPlay=false
         }else{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
