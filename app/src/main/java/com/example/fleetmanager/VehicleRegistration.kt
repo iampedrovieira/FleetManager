@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract
 import android.provider.MediaStore
@@ -29,6 +30,8 @@ import kotlinx.android.synthetic.main.activity_management_dashboard.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -102,8 +105,7 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         car = findViewById(R.id.car)
         truck = findViewById(R.id.truck)
         bike = findViewById(R.id.bike)
-
-
+        
         plate_input.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                 var plate = plate_input.text
@@ -118,107 +120,52 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         }
     }
 
-    fun addVehicle(){
+    fun addVehicle() {
+
         val startMillisRevision: Long = Calendar.getInstance().run {
+            val date: String = insurance_date_input.text.toString()
+            var dateParts: Array<String> = date.split("/").toTypedArray()
+            val day = dateParts[0].toInt()
+            val month = dateParts[1].toInt() - 1
+            val year = dateParts[2].toInt()
+            Log.d("datas", "${day}/${month}/${year}")
+            set(year, month, day)
+            timeInMillis
+        }
 
-                val date: String = insurance_date_input.text.toString()
-                var dateParts: Array<String> = date.split("/").toTypedArray()
-                val day = dateParts[0].toInt()
-                val month = dateParts[1].toInt() - 1
-                val year = dateParts[2].toInt()
-                Log.d("datas", "${day}/${month}/${year}")
-                set(year, month, day)
-                timeInMillis
-            }
+        val startMillisInsurance: Long = Calendar.getInstance().run {
+            val date: String = insurance_date_input.text.toString()
+            var dateParts: Array<String> = date.split("/").toTypedArray()
+            val day = dateParts[0].toInt()
+            val month = dateParts[1].toInt() - 1
+            val year = dateParts[2].toInt()
+            Log.d("datas", "${day}/${month}/${year}")
+            set(year, month, day)
+            timeInMillis
+        }
 
-            val endMillisRevision: Long = Calendar.getInstance().run {
-                /*val formatter = DateTimeFormatter.ofPattern("dd/M/yyyy")
-                val dateString: String = last_revision_input.text.toString()
-                val date = LocalDate.parse(dateString, formatter)
+        val calID: Long = 3
 
-                val datePlusMonth = date.plusMonths(1)
+        val valuesRevision = ContentValues().apply {
+            put(CalendarContract.Events.DTSTART, startMillisRevision)
+            put(CalendarContract.Events.DTEND, startMillisRevision)
+            put(CalendarContract.Events.TITLE, plate_input.text.toString())
+            put(CalendarContract.Events.DESCRIPTION, brand_input.text.toString())
+            put(CalendarContract.Events.CALENDAR_ID, calID)
+            put(CalendarContract.Events.EVENT_TIMEZONE, "Portugal/Lisbon")
+        }
 
-                val datePlusMonthString = datePlusMonth.format(formatter)
+        val valuesInsurance = ContentValues().apply {
+            put(CalendarContract.Events.DTSTART, startMillisInsurance)
+            put(CalendarContract.Events.DTEND, startMillisInsurance)
+            put(CalendarContract.Events.TITLE, plate_input.text.toString())
+            put(CalendarContract.Events.DESCRIPTION, brand_input.text.toString())
+            put(CalendarContract.Events.CALENDAR_ID, calID)
+            put(CalendarContract.Events.EVENT_TIMEZONE, "Portugal/Lisbon")
+        }
 
-                var dateParts: Array<String> = datePlusMonthString.split("/").toTypedArray()
-                val day = dateParts[0].toInt()
-                val month = dateParts[1].toInt() - 1
-                val year = dateParts[2].toInt()
-                set(year, month, day)
-                timeInMillis*/
-                val date: String = insurance_date_input.text.toString()
-                var dateParts: Array<String> = date.split("/").toTypedArray()
-                val day = dateParts[0].toInt()
-                val month = dateParts[1].toInt() - 1
-                val year = dateParts[2].toInt()
-                Log.d("datas", "${day}/${month}/${year}")
-                set(year, month, day)
-                timeInMillis
-            }
-
-            val startMillisInsurance: Long = Calendar.getInstance().run {
-                val date: String = insurance_date_input.text.toString()
-                var dateParts: Array<String> = date.split("/").toTypedArray()
-                val day = dateParts[0].toInt()
-                val month = dateParts[1].toInt() - 1
-                val year = dateParts[2].toInt()
-                Log.d("datas", "${day}/${month}/${year}")
-                set(year, month, day)
-                timeInMillis
-
-            }
-
-            val endMillisInsurance: Long = Calendar.getInstance().run {
-
-                /*val formatter = DateTimeFormatter.ofPattern("dd/M/yyyy")
-                val dateString: String = insurance_date_input.text.toString()
-                val date = LocalDate.parse(dateString, formatter)
-
-                val datePlusMonth = date.plusMonths(1)
-
-                val datePlusMonthString = datePlusMonth.format(formatter)
-
-                var dateParts: Array<String> = datePlusMonthString.split("/").toTypedArray()
-                val day = dateParts[0].toInt()
-                val month = dateParts[1].toInt() - 1
-                val year = dateParts[2].toInt()
-                set(year, month, day)
-                timeInMillis*/
-                val date: String = insurance_date_input.text.toString()
-                var dateParts: Array<String> = date.split("/").toTypedArray()
-                val day = dateParts[0].toInt()
-                val month = dateParts[1].toInt() - 1
-                val year = dateParts[2].toInt()
-                Log.d("datas", "${day}/${month}/${year}")
-                set(year, month, day)
-                timeInMillis
-            }
-
-            val calID: Long = 50
-
-            val valuesRevision = ContentValues().apply {
-                put(CalendarContract.Events.DTSTART, startMillisRevision)
-                put(CalendarContract.Events.DTEND, endMillisRevision)
-                put(CalendarContract.Events.TITLE, plate_input.text.toString())
-                put(CalendarContract.Events.DESCRIPTION, brand_input.text.toString())
-                put(CalendarContract.Events.CALENDAR_ID, calID)
-                put(CalendarContract.Events.EVENT_TIMEZONE, "Portugal/Lisbon")
-            }
-
-            val valuesInsurance = ContentValues().apply {
-                put(CalendarContract.Events.DTSTART, startMillisInsurance)
-                put(CalendarContract.Events.DTEND, endMillisInsurance)
-                put(CalendarContract.Events.TITLE, plate_input.text.toString())
-                put(CalendarContract.Events.DESCRIPTION, brand_input.text.toString())
-                put(CalendarContract.Events.CALENDAR_ID, calID)
-                put(CalendarContract.Events.EVENT_TIMEZONE, "Portugal/Lisbon")
-            }
-            Log.d("datas", "${valuesRevision}")
-            Log.d("datas", "${valuesInsurance}")
-
-            val uri = CalendarContract.Events.CONTENT_URI
-            contentResolver.insert(uri, valuesRevision)
-            contentResolver.insert(uri, valuesInsurance)
+        contentResolver.insert(CalendarContract.Events.CONTENT_URI, valuesRevision)!!
+        contentResolver.insert(CalendarContract.Events.CONTENT_URI, valuesInsurance)!!
     }
 
     private fun insertVehicle() {
@@ -291,7 +238,6 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
                     // Send Toast saying try again
                     // ...
                 }
-
         }
     }
 
@@ -334,7 +280,6 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
             }
         })
     }
-
 
     fun vehicleTypeClick(view: View) {
         when (view?.id) {
@@ -403,10 +348,7 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
                     bikeButton = false
                 }
             }
-
         }
-
-
     }
 
     fun openDatePicker(view: View) {
@@ -429,7 +371,6 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         }
 
         showDatePickerDialog();
-
     }
 
     fun showDatePickerDialog() {
@@ -451,6 +392,5 @@ class VehicleRegistration : AppCompatActivity(), DatePickerDialog.OnDateSetListe
         } else if (datePickerC) {
             insurance_date_input.text = date
         }
-
     }
 }
