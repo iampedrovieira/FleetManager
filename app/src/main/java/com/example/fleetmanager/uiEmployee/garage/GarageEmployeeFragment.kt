@@ -12,6 +12,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fleetmanager.MapsTracksActivity
+import com.example.fleetmanager.MapsTracksActivityAll
 import com.example.fleetmanager.R
 import com.example.fleetmanager.adapters.GarageAdapter
 import com.example.fleetmanager.api.Endpoints
@@ -34,6 +36,10 @@ class GarageEmployeeFragment : Fragment() {
 
         toolbar = root.findViewById(R.id.toolbar)
         toolbar.title = getString(R.string.title_garage)
+        toolbar.inflateMenu(R.menu.garage_menu)
+        toolbar.setOnMenuItemClickListener {
+            onOptionsItemSelected(it)
+        }
 
         // Recycler View
         val truck_recycler = root.findViewById<RecyclerView>(R.id.truck_recycler)
@@ -69,5 +75,18 @@ class GarageEmployeeFragment : Fragment() {
         })
 
         return root
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId){
+            R.id.garage_map_icon -> {
+                Log.d("aa", "botao track veiculo")
+                val intent = Intent(activity, MapsTracksActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

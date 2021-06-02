@@ -12,6 +12,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fleetmanager.ManagementDashboard
+import com.example.fleetmanager.MapsTracksActivity
+import com.example.fleetmanager.MapsTracksActivityAll
 import com.example.fleetmanager.R
 import com.example.fleetmanager.adapters.GarageAdapter
 import com.example.fleetmanager.api.Endpoints
@@ -80,9 +83,11 @@ class GarageFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId){
-            R.id.garage_map_icon -> {
+            R.id.garage_map_icon_test -> {
                 Log.d("aa", "botao track todos veiculos")
-
+                val intent = Intent(activity, MapsTracksActivityAll::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)

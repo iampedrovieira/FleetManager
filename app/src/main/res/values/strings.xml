@@ -67,6 +67,15 @@
     <!--Alert Dialog-->
     <string name="confirm">Confirm</string>
     <string name="reply">Reply</string>
+    <string name="title_activity_maps_tracks">Map</string>
+
+
+    <string name="offline">Offline</string>
+    <string name="need_location">Enable GPS SERVICE</string>
+    <string name="location_content">This app wants to change your device settings use GPS,Wi-Fi and cell networks for your location</string>
+    <string name="online_driver">Online</string>
+
+    <string name="total_online_drivers">Total Online Drivers : </string>
 
 
 </resources>
