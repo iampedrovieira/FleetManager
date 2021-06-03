@@ -80,10 +80,31 @@ class MainActivityEmployee : AppCompatActivity() {
     }
 
     private fun setCurrentFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fl_wrapper_employee, fragment)
-            commit()
+        if(intent.getStringExtra("DESTINATION") != null){
+
+            val destination = intent.getStringExtra("DESTINATION")
+            val origin_lat = intent.getDoubleExtra("ORI_LAT", 0.0)
+            val origin_lng = intent.getDoubleExtra("ORI_LNG", 0.0)
+
+            var bundles = Bundle()
+            bundles.putString("DESTINATION", destination)
+            bundles.putDouble("ORIGIN_LAT", origin_lat)
+            bundles.putDouble("ORIGIN_LNG", origin_lng)
+
+
+            fragment.arguments = bundles
+            playStopTrip.setImageDrawable(resources.getDrawable(R.drawable.ic_stop))
+    supportFragmentManager.beginTransaction().apply {
+                replace(R.id.fl_wrapper_employee, fragment)
+                commit()
+            }
+        }else{
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.fl_wrapper_employee, fragment)
+                commit()
+            }
         }
+
 
 
     fun playStopTrip(view: View) {
@@ -105,6 +126,7 @@ class MainActivityEmployee : AppCompatActivity() {
                 playStopTrip.setImageDrawable(resources.getDrawable(R.drawable.ic_play))
             }
             isPlay=true
+
         }
         Log.d("playButtonStatus", "Saída: " + isPlay.toString())
     }

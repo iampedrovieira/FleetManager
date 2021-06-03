@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.location.Location
 import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Button
 import android.widget.EditText
@@ -32,13 +33,11 @@ const val LOCATION_PERMISSION_REQUEST_CODE = 1000
 
 class DashboardEmployeeFragment : Fragment(), OnMapReadyCallback {
     private lateinit var gMap : GoogleMap
-    private lateinit var teste:Button
     private lateinit var lastLocation : Location
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback : LocationCallback
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var toolbar : androidx.appcompat.widget.Toolbar
-    private lateinit var destination_input: EditText
     var once: Boolean = false
 
     override fun onCreateView(
@@ -46,6 +45,7 @@ class DashboardEmployeeFragment : Fragment(), OnMapReadyCallback {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
         val root = inflater.inflate(R.layout.fragment_dashboard_employee, container, false)
 
         toolbar = root.findViewById(R.id.toolbar)
@@ -53,14 +53,6 @@ class DashboardEmployeeFragment : Fragment(), OnMapReadyCallback {
         toolbar.inflateMenu(R.menu.dashboard_menu)
         toolbar.setOnMenuItemClickListener {
             onOptionsItemSelected(it)
-        }
-
-        destination_input = root.findViewById(R.id.destination_input)
-
-        teste = root.findViewById(R.id.teste)
-        teste.setOnClickListener {
-            val url = getDirectionUrl(lastLocation.latitude, lastLocation.longitude, destination_input.text.toString())
-            GetDirection(url).execute()
         }
 
         val mapFragment =  childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
@@ -110,6 +102,14 @@ class DashboardEmployeeFragment : Fragment(), OnMapReadyCallback {
             return
         }
         gMap.isMyLocationEnabled = true
+
+        if(arguments != null ){
+            val destination = requireArguments().getString("DESTINATION")
+            val ori_lat = requireArguments().getDouble("ORIGIN_LAT")
+            val ori_lng = requireArguments().getDouble("ORIGIN_LNG")
+            val url = getDirectionUrl(ori_lat,ori_lng, destination!!)
+            GetDirection(url).execute()
+        }
     }
 
     private fun getDirectionUrl(origin_lat: Double, origin_long: Double, address : String) : String{
