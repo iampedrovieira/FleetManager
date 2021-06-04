@@ -36,7 +36,7 @@ class MapsTracksActivity : AppCompatActivity() {
     private lateinit var toolbar : androidx.appcompat.widget.Toolbar
 
     companion object {
-        private const val MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 2200
+        internal const val MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 2200
     }
 
     private lateinit var locationProviderClient: FusedLocationProviderClient

@@ -1,6 +1,8 @@
 package com.example.fleetmanager
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.hardware.SensorAdditionalInfo
 import android.location.Location
@@ -53,6 +55,11 @@ class StartTripActivity : AppCompatActivity() {
                putExtra("ORI_LAT", origin_lat)
                putExtra("ORI_LNG", origin_lng)
            }
+            val sharedPref: SharedPreferences =
+                getSharedPreferences(
+                    getString(R.string.preference_file_key),
+                    Context.MODE_PRIVATE
+                )
             startActivity(intent)
             finish()
  }

@@ -1,29 +1,39 @@
 package com.example.fleetmanager.uiEmployee.dashboard
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.ActionBar
 import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Looper
+import android.provider.Settings
+import android.telephony.CellLocation.requestLocationUpdate
 import android.util.Log
 import android.view.*
-import android.widget.Button
-import android.widget.EditText
+import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.fleetmanager.MainActivity
 import com.example.fleetmanager.MainActivityEmployee
+import com.example.fleetmanager.MapsTracksActivity
 import com.example.fleetmanager.R
 import com.example.fleetmanager.dto.GoogleMapDTO
 import com.example.fleetmanager.dto.PolyLine
+import com.example.fleetmanager.realtimeLocation.*
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.PolylineOptions
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
@@ -32,13 +42,31 @@ import okhttp3.Request
 const val LOCATION_PERMISSION_REQUEST_CODE = 1000
 
 class DashboardEmployeeFragment : Fragment(), OnMapReadyCallback {
+
+    companion object {
+        private const val MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 2200
+    }
+
+    private lateinit var locationProviderClient: FusedLocationProviderClient
+    private lateinit var locationRequest: LocationRequest
+    private lateinit var locationCallback: LocationCallback
+    private var locationFlag = true
+    private var driverOnlineFlag = false
+    private var currentPositionMarker: Marker? = null
+    private val googleMapHelper = GoogleMapHelper()
+    private lateinit var firebaseHelper : FirebaseHelper
+    private val markerAnimationHelper = MarkerAnimationHelper()
+    private val uiHelper = UiHelper()
+    private var key: String? = null
+
     private lateinit var gMap : GoogleMap
     private lateinit var lastLocation : Location
-    private lateinit var locationRequest: LocationRequest
-    private lateinit var locationCallback : LocationCallback
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var toolbar : androidx.appcompat.widget.Toolbar
     var once: Boolean = false
+
+    private var active : Boolean = false
+
+    private lateinit var sharedPref : SharedPreferences
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -58,22 +86,92 @@ class DashboardEmployeeFragment : Fragment(), OnMapReadyCallback {
         val mapFragment =  childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.requireActivity())
+        sharedPref = requireActivity().getSharedPreferences(
+            getString(R.string.preference_file_key),
+            Context.MODE_PRIVATE
+        )
 
-        locationCallback = object : LocationCallback(){
-            override fun onLocationResult(p0: LocationResult?) {
-                super.onLocationResult(p0)
-                lastLocation = p0!!.lastLocation
-                var location = LatLng(lastLocation.latitude, lastLocation.longitude)
-                if(!once){
-                    gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 12.0f))
-                    once = true
-                }
-            }
+        key = sharedPref.getString(getString(R.string.uid),"0000")
+        firebaseHelper = FirebaseHelper(key!!)
+
+        driverOnlineFlag = sharedPref.getBoolean("active", false)
+
+        val driverStatusTextView = root.findViewById<TextView>(R.id.driverStatusTextViewX)
+
+        if(driverOnlineFlag){
+            driverStatusTextView.text = resources.getString(R.string.online_driver)
+        }else{
+            driverStatusTextView.text = resources.getString(R.string.offline)
+            firebaseHelper.deleteDriver()
         }
-        createLocationRequest()
+
+
+
+        mapFragment.getMapAsync { gMap = it }
+        createLocationCallback()
+        locationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        locationRequest = uiHelper.getLocationRequest()
+        if (!uiHelper.isPlayServicesAvailable(requireContext())) {
+            Toast.makeText(context, "Play Services did not installed!", Toast.LENGTH_SHORT).show()
+        } else requestLocationUpdate()
+
+
+
 
         return root
+    }
+
+    private fun createLocationCallback() {
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                super.onLocationResult(locationResult)
+                if (locationResult!!.lastLocation == null) return
+                val latLng = LatLng(locationResult.lastLocation.latitude, locationResult.lastLocation.longitude)
+                Log.e("Location", latLng.latitude.toString() + " , " + latLng.longitude)
+                if (locationFlag) {
+                    locationFlag = false
+                    animateCamera(latLng)
+                }
+                    if (sharedPref.getBoolean("active", false)) firebaseHelper.updateDriver(Driver(lat = latLng.latitude, lng = latLng.longitude, driverId = key.toString()))
+                    showOrAnimateMarker(latLng)
+
+            }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun requestLocationUpdate() {
+        if (!uiHelper.isHaveLocationPermission(requireContext())) {
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                MapsTracksActivity.MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+            return
+        }
+        if (uiHelper.isLocationProviderEnabled(requireContext()))
+            uiHelper.showPositiveDialogWithListener(requireContext(), resources.getString(R.string.need_location), resources.getString(R.string.location_content), object : IPositiveNegativeListener {
+                override fun onPositive() {
+                    startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+                }
+            }, "Turn On", false)
+        locationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
+    }
+
+    private fun showOrAnimateMarker(latLng: LatLng) {
+        if (currentPositionMarker == null)
+            currentPositionMarker = gMap.addMarker(googleMapHelper.getDriverMarkerOptions(latLng))
+        else markerAnimationHelper.animateMarkerToGB(currentPositionMarker!!, latLng, LatLngInterpolator.Spherical())
+    }
+    private fun animateCamera(latLng: LatLng) {
+        val cameraUpdate = googleMapHelper.buildCameraUpdate(latLng)
+        gMap.animateCamera(cameraUpdate, 10, null)
+    }
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == MapsTracksActivity.MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
+            val value = grantResults[0]
+            if (value == PackageManager.PERMISSION_DENIED) {
+                Toast.makeText(context, "Location Permission denied", Toast.LENGTH_SHORT).show()
+            } else if (value == PackageManager.PERMISSION_GRANTED) requestLocationUpdate()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -127,16 +225,6 @@ class DashboardEmployeeFragment : Fragment(), OnMapReadyCallback {
         val output = "json"
 
         return "https://maps.googleapis.com/maps/api/directions/$output?$parameters&key=AIzaSyAUWK2jFqvY1X2QyHAJLLR9qI1r7hIPIK4"
-    }
-
-    override fun onPause() {
-        super.onPause()
-        fusedLocationClient.removeLocationUpdates(locationCallback)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        startLocationUpdates()
     }
 
     inner class GetDirection(val url: String) : AsyncTask<Void,Void, List<List<LatLng>>>(){
@@ -223,17 +311,4 @@ class DashboardEmployeeFragment : Fragment(), OnMapReadyCallback {
         return poly
     }
 
-    private fun createLocationRequest(){
-        locationRequest = LocationRequest()
-        locationRequest.interval = 5000
-        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-    }
-
-    private fun startLocationUpdates(){
-        if(ActivityCompat.checkSelfPermission(this.requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this.requireActivity(), arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION), LOCATION_PERMISSION_REQUEST_CODE)
-            return
-        }
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
-    }
 }
