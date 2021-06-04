@@ -65,6 +65,7 @@ dependencies {
     implementation 'androidx.wear:wear:1.1.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     // Firebase
@@ -91,6 +92,9 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-storage:3.3.1'
  
     implementation 'com.google.firebase:firebase-messaging-ktx'
+
+
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 
     // Charts
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'

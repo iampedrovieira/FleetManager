@@ -1,6 +1,7 @@
 package com.example.fleetmanager.uiManagement.garage
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fleetmanager.MapsTracksActivityAll
 import com.example.fleetmanager.R
 import com.example.fleetmanager.adapters.GarageAdapter
 import com.example.fleetmanager.api.Endpoints
@@ -80,7 +82,9 @@ class GarageFragment : Fragment() {
         return when (item.itemId){
             R.id.garage_map_icon -> {
                 Log.d("aa", "botao track todos veiculos")
-
+                val intent = Intent(activity, MapsTracksActivityAll::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)

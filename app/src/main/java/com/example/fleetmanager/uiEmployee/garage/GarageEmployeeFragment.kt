@@ -1,12 +1,10 @@
 package com.example.fleetmanager.uiEmployee.garage
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
@@ -17,7 +15,6 @@ import com.example.fleetmanager.adapters.GarageAdapter
 import com.example.fleetmanager.api.Endpoints
 import com.example.fleetmanager.api.OutputVehicle
 import com.example.fleetmanager.api.ServiceBuilder
-import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -70,4 +67,5 @@ class GarageEmployeeFragment : Fragment() {
 
         return root
     }
+
 }

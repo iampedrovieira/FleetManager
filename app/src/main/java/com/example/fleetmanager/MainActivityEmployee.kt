@@ -1,6 +1,8 @@
 package com.example.fleetmanager
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,12 +20,18 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivityEmployee : AppCompatActivity() {
     private lateinit var bottomNavigationView : BottomNavigationView
-    private var isPlay: Boolean = true
+    private var isPlay: Boolean = false
     private lateinit var playStopTrip : FloatingActionButton
+    private lateinit var sharedPref : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_employee)
+
+        sharedPref = getSharedPreferences(
+            getString(R.string.preference_file_key),
+            Context.MODE_PRIVATE
+        )
 
         playStopTrip = findViewById(R.id.playStopTrip)
 
@@ -39,6 +47,7 @@ class MainActivityEmployee : AppCompatActivity() {
         setCurrentFragment(dashboardFragment)
 
 
+        isPlay = sharedPref.getBoolean("isPlay", false)
 
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
@@ -80,28 +89,71 @@ class MainActivityEmployee : AppCompatActivity() {
     }
 
     private fun setCurrentFragment(fragment: Fragment) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fl_wrapper_employee, fragment)
-            commit()
+        if(intent.getStringExtra("DESTINATION") != null){
+
+            val destination = intent.getStringExtra("DESTINATION")
+            val origin_lat = intent.getDoubleExtra("ORI_LAT", 0.0)
+            val origin_lng = intent.getDoubleExtra("ORI_LNG", 0.0)
+
+            var bundles = Bundle()
+            bundles.putString("DESTINATION", destination)
+            bundles.putDouble("ORIGIN_LAT", origin_lat)
+            bundles.putDouble("ORIGIN_LNG", origin_lng)
+
+
+            fragment.arguments = bundles
+            playStopTrip.setImageDrawable(resources.getDrawable(R.drawable.ic_stop))
+    supportFragmentManager.beginTransaction().apply {
+                replace(R.id.fl_wrapper_employee, fragment)
+                commit()
+            }
+        }else{
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.fl_wrapper_employee, fragment)
+                commit()
+            }
         }
 
 
+
     fun playStopTrip(view: View) {
-        Log.d("playButtonStatus", "Entrada: " + isPlay.toString())
+
         if(isPlay){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 playStopTrip.setImageDrawable(resources.getDrawable(R.drawable.ic_stop, theme))
+
             } else {
                 playStopTrip.setImageDrawable(resources.getDrawable(R.drawable.ic_stop))
             }
-            isPlay=false
+            val i = Intent(this, StartTripActivity::class.java)
+            startActivity(i)
+
+            with(sharedPref.edit()) {
+                putBoolean("isPlay", false)
+                commit()
+            }
         }else{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 playStopTrip.setImageDrawable(resources.getDrawable(R.drawable.ic_play, theme))
             } else {
                 playStopTrip.setImageDrawable(resources.getDrawable(R.drawable.ic_play))
             }
-            isPlay=true
+
+            with(sharedPref.edit()) {
+                putBoolean("isPlay", true)
+                commit()
+            }
+
+            with(sharedPref.edit()) {
+                putBoolean("active", false)
+                commit()
+            }
+
+            val i = Intent(this, MainActivityEmployee::class.java)
+            startActivity(i)
+            finish()
+
+
         }
         Log.d("playButtonStatus", "Saída: " + isPlay.toString())
     }
