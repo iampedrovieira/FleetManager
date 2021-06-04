@@ -132,10 +132,6 @@ class MainActivityEmployee : AppCompatActivity() {
                 putBoolean("isPlay", false)
                 commit()
             }
-            with(sharedPref.edit()) {
-                putBoolean("active", true)
-                commit()
-            }
         }else{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 playStopTrip.setImageDrawable(resources.getDrawable(R.drawable.ic_play, theme))
@@ -148,7 +144,6 @@ class MainActivityEmployee : AppCompatActivity() {
                 commit()
             }
 
-            Log.d("cc", "aaaa")
             with(sharedPref.edit()) {
                 putBoolean("active", false)
                 commit()

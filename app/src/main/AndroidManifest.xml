@@ -32,10 +32,6 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsTracksActivity"
-            android:label=" "
-            android:parentActivityName=".MainActivity" />
-        <activity
             android:name=".MapsTracksActivityAll"
             android:label=" "
             android:parentActivityName=".MainActivity" />

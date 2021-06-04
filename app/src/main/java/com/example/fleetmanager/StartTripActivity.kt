@@ -44,6 +44,13 @@ class StartTripActivity : AppCompatActivity() {
         additionalInfo = findViewById(R.id.otherinfoText)
         start_btn = findViewById(R.id.start)
 
+
+        val sharedPref: SharedPreferences =
+            getSharedPreferences(
+                getString(R.string.preference_file_key),
+                Context.MODE_PRIVATE
+            )
+
         start_btn.setOnClickListener {
 
             val destination = toLocation.text.toString()
@@ -55,11 +62,11 @@ class StartTripActivity : AppCompatActivity() {
                putExtra("ORI_LAT", origin_lat)
                putExtra("ORI_LNG", origin_lng)
            }
-            val sharedPref: SharedPreferences =
-                getSharedPreferences(
-                    getString(R.string.preference_file_key),
-                    Context.MODE_PRIVATE
-                )
+
+            with(sharedPref.edit()) {
+                putBoolean("active", true)
+                commit()
+            }
             startActivity(intent)
             finish()
  }

@@ -2,8 +2,6 @@ package com.example.fleetmanager.uiEmployee.dashboard
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.ActionBar
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -14,18 +12,14 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import android.telephony.CellLocation.requestLocationUpdate
 import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import com.example.fleetmanager.MainActivity
 import com.example.fleetmanager.MainActivityEmployee
-import com.example.fleetmanager.MapsTracksActivity
 import com.example.fleetmanager.R
 import com.example.fleetmanager.dto.GoogleMapDTO
-import com.example.fleetmanager.dto.PolyLine
 import com.example.fleetmanager.realtimeLocation.*
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -143,7 +137,7 @@ class DashboardEmployeeFragment : Fragment(), OnMapReadyCallback {
     private fun requestLocationUpdate() {
         if (!uiHelper.isHaveLocationPermission(requireContext())) {
             ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                MapsTracksActivity.MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+                DashboardEmployeeFragment.MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
             return
         }
         if (uiHelper.isLocationProviderEnabled(requireContext()))
@@ -166,7 +160,7 @@ class DashboardEmployeeFragment : Fragment(), OnMapReadyCallback {
     }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == MapsTracksActivity.MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
+        if (requestCode == DashboardEmployeeFragment.MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION) {
             val value = grantResults[0]
             if (value == PackageManager.PERMISSION_DENIED) {
                 Toast.makeText(context, "Location Permission denied", Toast.LENGTH_SHORT).show()
