@@ -35,14 +35,14 @@
 
         <activity
             android:name=".RevisionSelectionArea"
-            android:parentActivityName=".ManagementDashboard"/>
+            android:parentActivityName=".ManagementMenu"/>
         <activity
             android:name=".AddReminder"
             android:parentActivityName=".RevisionSelectionArea"/>
         <activity
             android:name=".AddRevision"
             android:windowSoftInputMode="adjustResize" />
-
+        <activity
             android:name=".MapsTracksActivityAll"
             android:label=" "
             android:parentActivityName=".MainActivity" />

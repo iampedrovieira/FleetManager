@@ -56,12 +56,7 @@ class DashboardEmployeeFragment : Fragment(), OnMapReadyCallback {
     private var key: String? = null
 
     private lateinit var gMap : GoogleMap
-    private lateinit var lastLocation : Location
     private lateinit var toolbar : androidx.appcompat.widget.Toolbar
-    var once: Boolean = false
-
-    private var active : Boolean = false
-
     private lateinit var sharedPref : SharedPreferences
 
     override fun onCreateView(
@@ -92,12 +87,9 @@ class DashboardEmployeeFragment : Fragment(), OnMapReadyCallback {
 
         driverOnlineFlag = sharedPref.getBoolean("active", false)
 
-        val driverStatusTextView = root.findViewById<TextView>(R.id.driverStatusTextViewX)
 
         if(driverOnlineFlag){
-            driverStatusTextView.text = resources.getString(R.string.online_driver)
         }else{
-            driverStatusTextView.text = resources.getString(R.string.offline)
             firebaseHelper.deleteDriver()
         }
 
