@@ -11,7 +11,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.auth.User
+import com.example.fleetmanager.chat.model.User
 import com.google.firebase.ktx.Firebase
 import com.xwray.groupie.kotlinandroidextensions.Item
 
@@ -25,6 +25,16 @@ object FirestoreUtil {
 
     private val chatChannelsCollectionRef = firestoreInstance.collection("chatChannels")
 
+    fun initCurrentUserIfFirstTime(onComplete: () -> Unit){
+        currentUserDocRef.get().addOnSuccessListener { documentSnapshot ->
+            if(!documentSnapshot.exists()){
+                val newUser = User(mutableListOf())
+                currentUserDocRef.set(newUser).addOnSuccessListener { onComplete() }
+            }
+            else
+                onComplete()
+        }
+    }
     fun getCurrentUser(onComplete: (User) -> Unit) {
         //currentUserDocRef.get()
           //  .addOnSuccessListener {
@@ -89,8 +99,16 @@ object FirestoreUtil {
             .add(message)
     }
 
+    //region FCM
+    fun getFCMRegistrationTokens(onComplete: (tokens: MutableList<String>) -> Unit){
+        currentUserDocRef.get().addOnSuccessListener {
+           val user = it.toObject(User::class.java)!!
+            onComplete(user.registrationToken)
+        }
+    }
+
     fun setFCMRegistrationTokens(registrationTokens: MutableList<String>) {
-        //currentUserDocRef.update(mapOf("registrationTokens" to registrationTokens))
+        currentUserDocRef.update(mapOf("registrationTokens" to registrationTokens))
     }
     //endregion FCM
 }

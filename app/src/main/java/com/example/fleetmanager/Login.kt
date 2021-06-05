@@ -15,6 +15,7 @@ import android.widget.Toast
 import com.example.fleetmanager.api.Endpoints
 import com.example.fleetmanager.api.OutputLogin
 import com.example.fleetmanager.api.ServiceBuilder
+import com.example.fleetmanager.chatservice.MyFirebaseInstanceIDService
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -23,6 +24,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -135,6 +137,8 @@ class Login : AppCompatActivity() {
                     val account = task.getResult(ApiException::class.java)!!
                     Log.d("****Login", "firebaseAuthWithGoogle:" + account.id)
                     firebaseAuthWithGoogle(account.idToken!!)
+                    val registrationToken = FirebaseMessaging.getInstance().token
+                    MyFirebaseInstanceIDService.addTokenToFirestore(registrationToken.toString())
                 } catch (e: ApiException) {
                     // Google Sign In failed, update UI appropriately
                     Log.w("****Login", "Google sign in failed", e)
