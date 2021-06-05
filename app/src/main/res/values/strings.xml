@@ -25,6 +25,7 @@
     <string name="employee_email">Employee E-mail</string>
     <string name="date">Date</string>
     <string name="reminder_title">Title</string>
+    <string name="address">Address</string>
 
     <!--Dashboard-->
     <string name="add_revision_note">Add Revision Note</string>

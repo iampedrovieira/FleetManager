@@ -7,6 +7,7 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
 interface Endpoints {
+    // Login
     @FormUrlEncoded
     @POST("users/login")
     fun login(@Field("firebaseKey") firebaseKey: String): Call<OutputLogin>
@@ -21,6 +22,16 @@ interface Endpoints {
     @POST("company/employees")
     fun getEmployees(@Field("companyKey") company_key: String?): Call<List<OutputEmployee>>
 
+    // Info admin empresa
+    @FormUrlEncoded
+    @POST("company/info")
+    fun getManagementInfo(@Field("companyKey") company_key: String?): Call<OutputManagement>
+
+    // Info empregado
+    @FormUrlEncoded
+    @POST("employee/info")
+    fun getEmployeeInfo(@Field("firebaseKey") user_key: String?): Call<OutputEmployee>
+
     // Todas as viagens
     @FormUrlEncoded
     @POST("employee/trips")
@@ -31,10 +42,10 @@ interface Endpoints {
     @POST("external/vehicle-by-plate")
     fun getVehicleDetails(@Field("plate") plate: String?): Call<TruksDetailsPlate>
 
-
     @FormUrlEncoded
     @POST("employee/chat")
     fun getChat(@Field("userKey") user_key: String?,@Field("companyKey") company_key: String?): Call<List<OutputEmployee>>
+
     // Charts
     @FormUrlEncoded
     @POST("company/chart1")
