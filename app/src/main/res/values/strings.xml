@@ -26,6 +26,7 @@
     <string name="date">Date</string>
     <string name="reminder_title">Title</string>
     <string name="address">Address</string>
+    <string name="logout">Logout</string>
 
     <!--Dashboard-->
     <string name="add_revision_note">Add Revision Note</string>

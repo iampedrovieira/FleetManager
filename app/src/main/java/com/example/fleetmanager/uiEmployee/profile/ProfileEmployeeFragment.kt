@@ -1,6 +1,7 @@
 package com.example.fleetmanager.uiEmployee.profile
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -14,12 +15,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import android.util.Base64
+import android.view.MenuItem
 import android.widget.ProgressBar
+import com.example.fleetmanager.Login
+import com.example.fleetmanager.MapsTracksActivityAll
 import com.example.fleetmanager.R
 import com.example.fleetmanager.api.Endpoints
 import com.example.fleetmanager.api.OutputEmployee
 import com.example.fleetmanager.api.OutputManagement
 import com.example.fleetmanager.api.ServiceBuilder
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,8 +33,10 @@ import retrofit2.Response
 class ProfileEmployeeFragment : Fragment() {
     // Toolbar
     private lateinit var toolbar: androidx.appcompat.widget.Toolbar
+
     // Progress Bar
     private lateinit var profileProgressView: ProgressBar
+
     // Fields
     private lateinit var nameTV: TextView
     private lateinit var phoneNumberTV: TextView
@@ -49,6 +57,10 @@ class ProfileEmployeeFragment : Fragment() {
         // Toolbar
         toolbar = root.findViewById(R.id.toolbar)
         toolbar.title = getString(R.string.title_profile)
+        toolbar.inflateMenu(R.menu.profile_menu)
+        toolbar.setOnMenuItemClickListener {
+            onOptionsItemSelected(it)
+        }
         // Progress Bar
         profileProgressView = root.findViewById(R.id.profilePB)
         // Fields
@@ -66,11 +78,38 @@ class ProfileEmployeeFragment : Fragment() {
             Context.MODE_PRIVATE
         )
         val user_key = sharedPref.getString(getString(R.string.uid), "aaaa")
-
         getUserInfo(user_key)
 
-
         return root
+    }
+
+    // Logout Button
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.logout_nav -> {
+                // Removing user data from shared preferences
+                val sharedPref: SharedPreferences = requireActivity().getSharedPreferences(
+                    getString(R.string.preference_file_key),
+                    Context.MODE_PRIVATE
+                )
+                with(sharedPref.edit()) {
+                    putBoolean(getString(R.string.logged), false)
+                    putInt(getString(R.string.uid), 0)
+                    putString(getString(R.string.isEmployee), null)
+                    putString(getString(R.string.company), null)
+                    commit()
+                }
+
+                Firebase.auth.signOut()
+
+                Log.d("ProfilePage", "Logout")
+                val intent = Intent(activity, Login::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun getUserInfo(user_key: String?) {
@@ -102,13 +141,6 @@ class ProfileEmployeeFragment : Fragment() {
                     photoIV.setImageBitmap(decodedBitmap)
                     addressTV.text = res.employee_address
                     getCompanyName(res.company_key).toString()
-
-                    /*onServiceTV.text = res.on_service.toString()
-                    if (res.on_service) {
-                        onServiceTV.setTextColor(Color.GREEN)
-                    } else {
-                        onServiceTV.setTextColor(Color.RED)
-                    }*/
                 }
             }
 

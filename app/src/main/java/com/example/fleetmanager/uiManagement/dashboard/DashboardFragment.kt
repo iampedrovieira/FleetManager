@@ -216,7 +216,6 @@ class DashboardFragment : Fragment() {
             }
         })
 
-
         // Chart 4
         val callChart4 = request.getchart4(company_key)
         callChart4.enqueue(object : Callback<List<Chart4>> {
