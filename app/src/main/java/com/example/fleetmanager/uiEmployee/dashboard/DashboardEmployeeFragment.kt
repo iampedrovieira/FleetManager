@@ -115,7 +115,6 @@ class DashboardEmployeeFragment : Fragment(), OnMapReadyCallback {
                 super.onLocationResult(locationResult)
                 if (locationResult!!.lastLocation == null) return
                 val latLng = LatLng(locationResult.lastLocation.latitude, locationResult.lastLocation.longitude)
-                Log.e("Location", latLng.latitude.toString() + " , " + latLng.longitude)
                 if (locationFlag) {
                     locationFlag = false
                     animateCamera(latLng)

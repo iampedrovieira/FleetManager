@@ -45,7 +45,7 @@ class ProfileEmployeeFragment : Fragment() {
     private lateinit var addressTV: TextView
     private lateinit var companyNamePHTV: TextView
     private lateinit var companyNameTV: TextView
-    private lateinit var photoIV: ImageView
+    private lateinit var photo: ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,7 +71,7 @@ class ProfileEmployeeFragment : Fragment() {
         addressTV = root.findViewById(R.id.address_name)
         companyNamePHTV = root.findViewById(R.id.company)
         companyNameTV = root.findViewById(R.id.company_name)
-        photoIV = root.findViewById(R.id.employee_profile_image)
+        photo = root.findViewById(R.id.employee_profile_image)
 
         val sharedPref: SharedPreferences = requireActivity().getSharedPreferences(
             getString(R.string.preference_file_key),
@@ -126,7 +126,7 @@ class ProfileEmployeeFragment : Fragment() {
                     profileProgressView.visibility = View.INVISIBLE
                     nameTV.visibility = View.VISIBLE
                     phoneNumberTV.visibility = View.VISIBLE
-                    photoIV.visibility = View.VISIBLE
+                    photo.visibility = View.VISIBLE
                     addressPHTV.visibility = View.VISIBLE
                     addressTV.visibility = View.VISIBLE
                     companyNamePHTV.visibility = View.VISIBLE
@@ -138,7 +138,7 @@ class ProfileEmployeeFragment : Fragment() {
                     nameTV.text = res.employee_name
                     phoneNumberTV.text = res.phone_number
                     val decodedBitmap: Bitmap? = res.picture.toBitmap()
-                    photoIV.setImageBitmap(decodedBitmap)
+                    photo.setImageBitmap(decodedBitmap)
                     addressTV.text = res.employee_address
                     getCompanyName(res.company_key).toString()
                 }

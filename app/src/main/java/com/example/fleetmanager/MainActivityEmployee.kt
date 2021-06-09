@@ -155,7 +155,6 @@ class MainActivityEmployee : AppCompatActivity() {
 
 
         }
-        Log.d("playButtonStatus", "Saída: " + isPlay.toString())
     }
 
     fun replaceFragmentChat(){
@@ -164,7 +163,6 @@ class MainActivityEmployee : AppCompatActivity() {
         bundle.putBoolean("admin",false)
         chat_fragment.arguments = bundle
         setCurrentFragment(chat_fragment)
-        Log.i("aa", "Home Selected")
     }
 
 }
