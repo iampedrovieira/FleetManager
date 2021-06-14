@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.fleetmanager.chat.model.MessageType
 import com.example.fleetmanager.chat.model.TextMessage
+import com.example.fleetmanager.chat.model.User
 import com.example.fleetmanager.util.AppConstants
 import com.example.fleetmanager.util.FirestoreUtil
 import com.google.android.material.textfield.TextInputLayout
@@ -30,6 +31,9 @@ class ChatActivity : AppCompatActivity() {
     private var shoudInitRecyclerView = true
     private lateinit var editText: TextView
     private lateinit var messagesSection:Section
+    private lateinit var currentUser: User
+    private lateinit var otherUserid: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
@@ -41,8 +45,8 @@ class ChatActivity : AppCompatActivity() {
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_back);
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
-        val otherUserid = intent.getStringExtra(AppConstants.USER_ID)
+        FirestoreUtil.getCurrentUser { currentUser = it }
+        otherUserid = intent.getStringExtra(AppConstants.USER_ID)!!
         val sharedPref: SharedPreferences = getSharedPreferences(
             R.string.preference_file_key.toString(),
             Context.MODE_PRIVATE
